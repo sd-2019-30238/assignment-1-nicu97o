@@ -1,9 +1,7 @@
 package com.tuturugaNicolae.bestFurnitureDeals.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -14,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 @Entity
 @Table
 public class Furniture {
@@ -30,11 +29,20 @@ public class Furniture {
     @Column
     private int quantityOnStock;
 
-    @OneToMany(mappedBy = "furniture", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(mappedBy = "furniture", fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
     private List<Deal> deals;
 
-    @OneToMany(mappedBy = "furniture", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(mappedBy = "furniture", fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
     private List<BoughtFurniture> boughtFurniture;
+
+    public Furniture(long id, String name, String description, int quantityOnStock) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.quantityOnStock = quantityOnStock;
+    }
 }

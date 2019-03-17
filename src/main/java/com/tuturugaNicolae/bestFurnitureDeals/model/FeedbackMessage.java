@@ -1,9 +1,7 @@
 package com.tuturugaNicolae.bestFurnitureDeals.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -11,6 +9,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 @Entity
 @Table
 public class FeedbackMessage {
@@ -24,7 +23,15 @@ public class FeedbackMessage {
     @Column
     private String messageBody;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinColumn(name = "userId")
+    @EqualsAndHashCode.Exclude
     private User author;
+
+    public FeedbackMessage(long id, String title, String messageBody) {
+        this.id = id;
+        this.title = title;
+        this.messageBody = messageBody;
+    }
 }
