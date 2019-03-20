@@ -36,6 +36,9 @@ public class Deal {
     @Column
     private boolean available;
 
+    @Column
+    private int availableQuantity;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

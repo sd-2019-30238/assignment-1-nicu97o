@@ -26,9 +26,6 @@ public class Furniture {
     @Column
     private String description;
 
-    @Column
-    private int quantityOnStock;
-
     @OneToMany(mappedBy = "furniture", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @EqualsAndHashCode.Exclude
@@ -39,10 +36,9 @@ public class Furniture {
     @EqualsAndHashCode.Exclude
     private List<BoughtFurniture> boughtFurniture;
 
-    public Furniture(long id, String name, String description, int quantityOnStock) {
+    public Furniture(long id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.quantityOnStock = quantityOnStock;
     }
 }

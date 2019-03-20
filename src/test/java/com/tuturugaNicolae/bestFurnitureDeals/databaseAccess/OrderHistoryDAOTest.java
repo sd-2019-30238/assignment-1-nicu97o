@@ -29,13 +29,12 @@ public class OrderHistoryDAOTest extends GenericDAOTest<OrderHistory> {
 
     @Test
     public void testUpdate_shouldBeSuccessful() {
-        OrderHistory orderHistory = new OrderHistory(1L, LocalDateTime.now(), OrderState.PIKED_UP);
+        OrderHistory orderHistory = new OrderHistory(1L, LocalDateTime.now(), OrderState.ACCEPTED);
         testUpdate(orderHistoryDAO, orderHistory, PREINSERTED_ORDER_HISTORY_1.getId());
     }
 
     @Test
     public void testDelete_shouldBeSuccessful() {
-        OrderHistory orderHistory = orderHistoryDAO.selectById(PREINSERTED_ORDER_HISTORY_1.getId());
-        testDelete(orderHistoryDAO, orderHistory, NUMBER_OF_PREINSERTED_ORDER_HISTORY - 1);
+        testDelete(orderHistoryDAO, PREINSERTED_ORDER_HISTORY_1.getId(), NUMBER_OF_PREINSERTED_ORDER_HISTORY - 1);
     }
 }

@@ -35,7 +35,6 @@ public class BoughtFurnitureDAOTest extends GenericDAOTest<BoughtFurniture> {
 
     @Test
     public void testDelete_shouldBeSuccessful() {
-        BoughtFurniture boughtFurniture = boughtFurnitureDAO.selectById(PREINSERTED_BOUGHT_FURNITURE_1.getId());
-        testDelete(boughtFurnitureDAO, boughtFurniture, NUMBER_OF_PREINSERTED_BOUGHT_FURNITURE - 1);
+        testDelete(boughtFurnitureDAO, PREINSERTED_BOUGHT_FURNITURE_1.getId(), NUMBER_OF_PREINSERTED_BOUGHT_FURNITURE - 1);
     }
 }

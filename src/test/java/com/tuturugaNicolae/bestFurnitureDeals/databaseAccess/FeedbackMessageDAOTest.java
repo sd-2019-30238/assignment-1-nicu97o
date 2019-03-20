@@ -20,19 +20,18 @@ public class FeedbackMessageDAOTest extends GenericDAOTest<FeedbackMessage> {
 
     @Test
     public void testInsertShouldBeSuccessful() {
-        FeedbackMessage feedbackMessage = new FeedbackMessage(0L, "Test tile", "Test desc", PREINSERTED_USER_1);
+        FeedbackMessage feedbackMessage = new FeedbackMessage(0L, "Test tile", "Test desc");
         testInsert(feedbackMessageDAO, feedbackMessage, NUMBER_OF_PREINSERTED_FEEDBACK_MESSAGES + 1);
     }
 
     @Test
     public void testUpdate_shouldBeSuccessful() {
-        FeedbackMessage feedbackMessage = new FeedbackMessage(PREINSERTED_FEEDBACK_MESSAGE_1.getId(), "Test tile", "Test desc", PREINSERTED_USER_1);
+        FeedbackMessage feedbackMessage = new FeedbackMessage(PREINSERTED_FEEDBACK_MESSAGE_1.getId(), "Test tile", "Test desc");
         testUpdate(feedbackMessageDAO, feedbackMessage, PREINSERTED_FEEDBACK_MESSAGE_1.getId());
     }
 
     @Test
     public void testDelete_shouldBeSuccessful() {
-        FeedbackMessage feedbackMessage = feedbackMessageDAO.selectById(PREINSERTED_FEEDBACK_MESSAGE_1.getId());
-        testDelete(feedbackMessageDAO, feedbackMessage, NUMBER_OF_PREINSERTED_FEEDBACK_MESSAGES - 1);
+        testDelete(feedbackMessageDAO, PREINSERTED_FEEDBACK_MESSAGE_1.getId(), NUMBER_OF_PREINSERTED_FEEDBACK_MESSAGES - 1);
     }
 }

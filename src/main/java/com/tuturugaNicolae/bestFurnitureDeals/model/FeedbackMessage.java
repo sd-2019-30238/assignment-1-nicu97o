@@ -23,11 +23,11 @@ public class FeedbackMessage {
     @Column
     private String messageBody;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "orderHistoryId")
     @EqualsAndHashCode.Exclude
-    private User author;
+    private OrderHistory orderHistory;
 
     public FeedbackMessage(long id, String title, String messageBody) {
         this.id = id;

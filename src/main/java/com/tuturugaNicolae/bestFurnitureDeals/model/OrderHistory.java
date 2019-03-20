@@ -33,8 +33,20 @@ public class OrderHistory {
     @Enumerated(EnumType.STRING)
     private OrderState orderState;
 
+    @OneToOne(mappedBy = "orderHistory", fetch = FetchType.LAZY)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    private FeedbackMessage feedbackMessage;
+
     public OrderHistory(long id, LocalDateTime orderPlaceDateTime, OrderState orderState) {
         this.id = id;
+        this.orderPlaceDateTime = orderPlaceDateTime;
+        this.orderState = orderState;
+    }
+
+    public OrderHistory(long id, ClientOrder clientOrder, LocalDateTime orderPlaceDateTime, OrderState orderState) {
+        this.id = id;
+        this.clientOrder = clientOrder;
         this.orderPlaceDateTime = orderPlaceDateTime;
         this.orderState = orderState;
     }

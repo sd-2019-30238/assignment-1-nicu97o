@@ -37,7 +37,6 @@ public class ClientOrderDAOTest extends GenericDAOTest<ClientOrder> {
 
     @Test
     public void testDelete_shouldBeSuccessful() {
-        ClientOrder clientOrder = clientOrderDAO.selectById(PREINSERTED_CLIENT_ORDER_1.getId());
-        testDelete(clientOrderDAO, clientOrder, NUMBER_OF_PREINSERTED_CLIENT_ORDERS - 1);
+        testDelete(clientOrderDAO, PREINSERTED_CLIENT_ORDER_1.getId(), NUMBER_OF_PREINSERTED_CLIENT_ORDERS - 1);
     }
 }
