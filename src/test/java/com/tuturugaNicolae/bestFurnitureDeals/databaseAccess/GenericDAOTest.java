@@ -1,15 +1,12 @@
 package com.tuturugaNicolae.bestFurnitureDeals.databaseAccess;
 
-import com.tuturugaNicolae.bestFurnitureDeals.configuration.DatabaseConfiguration;
-import com.tuturugaNicolae.bestFurnitureDeals.model.*;
+import com.tuturugaNicolae.bestFurnitureDeals.configuration.AppConfiguration;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -21,7 +18,7 @@ import static org.junit.Assert.assertThat;
  * It also contains all the data loaded in the database to be used in the test classes that extends this class.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {DatabaseConfiguration.class},
+@ContextConfiguration(classes = {AppConfiguration.class},
         loader = AnnotationConfigContextLoader.class)
 @Transactional
 public abstract class GenericDAOTest<T> {

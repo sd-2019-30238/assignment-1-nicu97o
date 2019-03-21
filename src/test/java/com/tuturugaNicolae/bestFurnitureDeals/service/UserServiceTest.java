@@ -1,11 +1,13 @@
 package com.tuturugaNicolae.bestFurnitureDeals.service;
 
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.SecurityContext;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.UserService;
-import com.tuturugaNicolae.bestFurnitureDeals.configuration.DatabaseConfiguration;
+import com.tuturugaNicolae.bestFurnitureDeals.configuration.AppConfiguration;
 import com.tuturugaNicolae.bestFurnitureDeals.exception.NoRightsToPerformThisOperationException;
 import com.tuturugaNicolae.bestFurnitureDeals.exception.NoUserFoundException;
 import com.tuturugaNicolae.bestFurnitureDeals.model.User;
 import com.tuturugaNicolae.bestFurnitureDeals.model.UserType;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +25,19 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {DatabaseConfiguration.class},
+@ContextConfiguration(classes = {AppConfiguration.class},
         loader = AnnotationConfigContextLoader.class)
 @Transactional
 public class UserServiceTest {
     @Autowired
     private UserService userService;
+    @Autowired
+    private SecurityContext securityContext;
+
+    @Before
+    public void setUp() {
+        securityContext.authenticate(PREINSERTED_USER_1.getUsername(), PREINSERTED_USER_1.getPassword());
+    }
 
     @Test
     public void testGetUserById_shouldBeSuccessful() {

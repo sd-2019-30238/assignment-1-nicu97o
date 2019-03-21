@@ -2,10 +2,7 @@ package com.tuturugaNicolae.bestFurnitureDeals.configuration;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -17,14 +14,15 @@ import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 @Configuration
+@EnableAspectJAutoProxy
 @ComponentScan({"com.tuturugaNicolae.bestFurnitureDeals"})
 @PropertySource({"db.properties", "hibernate.properties"})
 @EnableTransactionManagement
-public class DatabaseConfiguration {
+public class AppConfiguration {
     private Environment environment;
 
     @Autowired
-    public DatabaseConfiguration(Environment environment) {
+    public AppConfiguration(Environment environment) {
         this.environment = environment;
     }
 
