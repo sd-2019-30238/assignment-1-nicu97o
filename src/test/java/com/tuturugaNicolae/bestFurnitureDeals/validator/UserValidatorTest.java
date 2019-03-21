@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 
 public class UserValidatorTest {
     private Validator userValidator;
-    private final static User validUser = new User("tuturuga", "123456", "tuturuganicu@gmail.com", UserType.CLIENT);
+    private static final User VALID_USER = new User("tuturuga", "123456", "tuturuganicu@gmail.com", UserType.CLIENT);
 
     @Before
     public void setUp() {
@@ -21,24 +21,24 @@ public class UserValidatorTest {
 
     @Test
     public void testValidateWhenUserIsValid_shouldReturnTrue() {
-        assertTrue(userValidator.validate(validUser));
+        assertTrue(userValidator.validate(VALID_USER));
     }
 
     @Test
     public void testValidateWhenUserHasInvalidUsername_shouldReturnFalse() {
-        User invalidUser = new User(null, validUser.getPassword(), validUser.getMail(), validUser.getUserType());
+        User invalidUser = new User(null, VALID_USER.getPassword(), VALID_USER.getMail(), VALID_USER.getUserType());
         assertFalse(userValidator.validate(invalidUser));
     }
 
     @Test
     public void testValidateWhenUserHasInvalidMail_shouldReturnFalse() {
-        User invalidUser = new User(validUser.getUsername(), validUser.getPassword(), "abc", validUser.getUserType());
+        User invalidUser = new User(VALID_USER.getUsername(), VALID_USER.getPassword(), "abc", VALID_USER.getUserType());
         assertFalse(userValidator.validate(invalidUser));
     }
 
     @Test
     public void testValidateWhenUserHasInvalidPassword_shouldReturnFalse() {
-        User invalidUser = new User(validUser.getUsername(), "abc", validUser.getMail(), validUser.getUserType());
+        User invalidUser = new User(VALID_USER.getUsername(), "abc", VALID_USER.getMail(), VALID_USER.getUserType());
         assertFalse(userValidator.validate(invalidUser));
     }
 }

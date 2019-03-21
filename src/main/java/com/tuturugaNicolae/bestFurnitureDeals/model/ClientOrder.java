@@ -32,6 +32,9 @@ public class ClientOrder {
     @Column
     private BigDecimal totalPrice;
 
+    @Column
+    private boolean finished;
+
     @OneToMany(mappedBy = "clientOrder", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<BoughtFurniture> boughtFurniture;
@@ -45,8 +48,9 @@ public class ClientOrder {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private OrderHistory orderHistory;
 
-    public ClientOrder(long id, boolean approved, PaymentMethod paymentMethod, BigDecimal totalPrice) {
+    public ClientOrder(long id, boolean approved, PaymentMethod paymentMethod, BigDecimal totalPrice, boolean finished) {
         this.id = id;
+        this.finished = finished;
         this.approved = approved;
         this.paymentMethod = paymentMethod;
         this.totalPrice = totalPrice;

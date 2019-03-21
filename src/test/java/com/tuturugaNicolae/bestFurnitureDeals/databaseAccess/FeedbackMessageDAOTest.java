@@ -1,5 +1,6 @@
 package com.tuturugaNicolae.bestFurnitureDeals.databaseAccess;
 
+import com.tuturugaNicolae.bestFurnitureDeals.container.PreinsertedDataContainer;
 import com.tuturugaNicolae.bestFurnitureDeals.model.FeedbackMessage;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,28 +11,28 @@ public class FeedbackMessageDAOTest extends GenericDAOTest<FeedbackMessage> {
 
     @Test
     public void testSelectAll_shouldBeSuccessful() {
-        testSelectAll(feedbackMessageDAO, NUMBER_OF_PREINSERTED_FEEDBACK_MESSAGES);
+        testSelectAll(feedbackMessageDAO, PreinsertedDataContainer.NUMBER_OF_PREINSERTED_FEEDBACK_MESSAGES);
     }
 
     @Test
     public void testSelectById_shouldBeSuccessful() {
-        testSelectById(feedbackMessageDAO, PREINSERTED_FEEDBACK_MESSAGE_1.getId(), PREINSERTED_FEEDBACK_MESSAGE_1);
+        testSelectById(feedbackMessageDAO, PreinsertedDataContainer.PREINSERTED_FEEDBACK_MESSAGE_1.getId(), PreinsertedDataContainer.PREINSERTED_FEEDBACK_MESSAGE_1);
     }
 
     @Test
     public void testInsertShouldBeSuccessful() {
         FeedbackMessage feedbackMessage = new FeedbackMessage(0L, "Test tile", "Test desc");
-        testInsert(feedbackMessageDAO, feedbackMessage, NUMBER_OF_PREINSERTED_FEEDBACK_MESSAGES + 1);
+        testInsert(feedbackMessageDAO, feedbackMessage, PreinsertedDataContainer.NUMBER_OF_PREINSERTED_FEEDBACK_MESSAGES + 1);
     }
 
     @Test
     public void testUpdate_shouldBeSuccessful() {
-        FeedbackMessage feedbackMessage = new FeedbackMessage(PREINSERTED_FEEDBACK_MESSAGE_1.getId(), "Test tile", "Test desc");
-        testUpdate(feedbackMessageDAO, feedbackMessage, PREINSERTED_FEEDBACK_MESSAGE_1.getId());
+        FeedbackMessage feedbackMessage = new FeedbackMessage(PreinsertedDataContainer.PREINSERTED_FEEDBACK_MESSAGE_1.getId(), "Test tile", "Test desc");
+        testUpdate(feedbackMessageDAO, feedbackMessage, PreinsertedDataContainer.PREINSERTED_FEEDBACK_MESSAGE_1.getId());
     }
 
     @Test
     public void testDelete_shouldBeSuccessful() {
-        testDelete(feedbackMessageDAO, PREINSERTED_FEEDBACK_MESSAGE_1.getId(), NUMBER_OF_PREINSERTED_FEEDBACK_MESSAGES - 1);
+        testDelete(feedbackMessageDAO, PreinsertedDataContainer.PREINSERTED_FEEDBACK_MESSAGE_1.getId(), PreinsertedDataContainer.NUMBER_OF_PREINSERTED_FEEDBACK_MESSAGES - 1);
     }
 }

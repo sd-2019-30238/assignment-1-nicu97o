@@ -1,5 +1,6 @@
 package com.tuturugaNicolae.bestFurnitureDeals.databaseAccess;
 
+import com.tuturugaNicolae.bestFurnitureDeals.container.PreinsertedDataContainer;
 import com.tuturugaNicolae.bestFurnitureDeals.model.User;
 import com.tuturugaNicolae.bestFurnitureDeals.model.UserType;
 import org.junit.Test;
@@ -14,18 +15,18 @@ public class UserDAOTest extends GenericDAOTest<User> {
 
     @Test
     public void testSelectAll_shouldBeSuccessful() {
-        testSelectAll(userDAO, NUMBER_OF_PREINSERTED_USERS);
+        testSelectAll(userDAO, PreinsertedDataContainer.NUMBER_OF_PREINSERTED_USERS);
     }
 
     @Test
     public void testSelectById_shouldBeSuccessful() {
-        testSelectById(userDAO, PREINSERTED_USER_1.getId(), PREINSERTED_USER_1);
+        testSelectById(userDAO, PreinsertedDataContainer.PREINSERTED_USER_1.getId(), PreinsertedDataContainer.PREINSERTED_USER_1);
     }
 
     @Test
     public void testInsertShouldBeSuccessful() {
         User user = new User("nicu", "123", "nicu.tuturuga@yahoo.com", UserType.STAFF);
-        testInsert(userDAO, user, NUMBER_OF_PREINSERTED_USERS + 1);
+        testInsert(userDAO, user, PreinsertedDataContainer.NUMBER_OF_PREINSERTED_USERS + 1);
     }
 
     @Test
@@ -36,12 +37,12 @@ public class UserDAOTest extends GenericDAOTest<User> {
 
     @Test
     public void testDelete_shouldBeSuccessful() {
-        testDelete(userDAO, PREINSERTED_USER_1.getId(), NUMBER_OF_PREINSERTED_USERS - 1);
+        testDelete(userDAO, PreinsertedDataContainer.PREINSERTED_USER_1.getId(), PreinsertedDataContainer.NUMBER_OF_PREINSERTED_USERS - 1);
     }
 
     @Test
     public void testFindUserByUsername_shouldBeSuccessful() {
-        User user = userDAO.findByUsername(PREINSERTED_USER_1.getUsername()).get();
-        assertThat(user, is(PREINSERTED_USER_1));
+        User user = userDAO.findByUsername(PreinsertedDataContainer.PREINSERTED_USER_1.getUsername()).get();
+        assertThat(user, is(PreinsertedDataContainer.PREINSERTED_USER_1));
     }
 }
