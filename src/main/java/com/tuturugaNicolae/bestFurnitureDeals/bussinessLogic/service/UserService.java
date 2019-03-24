@@ -1,19 +1,19 @@
 package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service;
 
-import com.tuturugaNicolae.bestFurnitureDeals.model.User;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserDTO;
 
 import java.util.List;
 
 public interface UserService {
-    User getUserById(long id);
+    UserDTO getUserById(long id);
 
-    User getUserByUsername(String username);
+    UserDTO getUserByUsername(String username);
 
-    List<User> getAllUsers();
+    List<UserDTO> getAllUsers();
 
-    void updateUser(User user, String usernameOfLoggedUser);
+    void updateUser(UserDTO userDTO, String usernameOfLoggedUser);
 
     void deleteUser(String username);
 
-    void addUser(User user);
+    void addUser(UserDTO userDTO, String password);
 }

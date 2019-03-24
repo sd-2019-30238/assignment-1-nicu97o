@@ -20,7 +20,7 @@ public class SecurityAspect {
 
     @Around("com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.aspect.SecurityAOPExpressions.servicePackageAndSubpackagePointcut()")
     public Object checkIfUserIsLogged(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        if (securityContext.getLoggedUser().get() == null) {
+        if (!securityContext.isAuthenticated()) {
             throw new UnauthorizedException();
         }
         Object returnValue;
