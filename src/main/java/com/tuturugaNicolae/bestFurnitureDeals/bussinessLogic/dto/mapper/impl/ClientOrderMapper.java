@@ -1,9 +1,11 @@
 package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.mapper.impl;
 
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.ClientOrderDTO;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.PaymentMethodDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.mapper.Mapper;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.ClientOrder;
+import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.PaymentMethod;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,7 +25,7 @@ public class ClientOrderMapper implements Mapper<ClientOrder, ClientOrderDTO> {
         clientOrder.setId(clientOrderDTO.getId());
         clientOrder.setApproved(clientOrderDTO.isApproved());
         clientOrder.setFinished(clientOrderDTO.isFinished());
-        clientOrder.setPaymentMethod(clientOrderDTO.getPaymentMethod());
+        clientOrder.setPaymentMethod(PaymentMethod.valueOf(clientOrderDTO.getPaymentMethodDTO().toString()));
         clientOrder.setTotalPrice(clientOrderDTO.getTotalPrice());
         clientOrder.setClient(userMapper.convertToEntity(clientOrderDTO.getClient()));
         return clientOrder;
@@ -35,7 +37,7 @@ public class ClientOrderMapper implements Mapper<ClientOrder, ClientOrderDTO> {
         clientOrderDTO.setId(clientOrder.getId());
         clientOrderDTO.setApproved(clientOrder.isApproved());
         clientOrderDTO.setFinished(clientOrder.isFinished());
-        clientOrderDTO.setPaymentMethod(clientOrder.getPaymentMethod());
+        clientOrderDTO.setPaymentMethodDTO(PaymentMethodDTO.valueOf(clientOrder.getPaymentMethod().toString()));
         clientOrderDTO.setTotalPrice(clientOrder.getTotalPrice());
         clientOrderDTO.setClient(userMapper.convertToDTO(clientOrder.getClient()));
         return clientOrderDTO;

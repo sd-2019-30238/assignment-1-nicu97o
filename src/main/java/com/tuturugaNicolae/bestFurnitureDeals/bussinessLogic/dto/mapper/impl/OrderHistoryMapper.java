@@ -3,8 +3,10 @@ package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.mapper.impl;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.ClientOrderDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.OrderHistoryDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.mapper.Mapper;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.OrderStateDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.ClientOrder;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.OrderHistory;
+import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.OrderState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +24,7 @@ public class OrderHistoryMapper implements Mapper<OrderHistory, OrderHistoryDTO>
         OrderHistory orderHistory = new OrderHistory();
         orderHistory.setId(orderHistoryDTO.getId());
         orderHistory.setOrderPlaceDateTime(orderHistoryDTO.getOrderPlaceDateTime());
-        orderHistory.setOrderState(orderHistoryDTO.getOrderState());
+        orderHistory.setOrderState(OrderState.valueOf(orderHistoryDTO.getOrderStateDTO().toString()));
         orderHistory.setClientOrder(clientOrderMapper.convertToEntity(orderHistoryDTO.getClientOrderDTO()));
         return orderHistory;
     }
@@ -32,7 +34,7 @@ public class OrderHistoryMapper implements Mapper<OrderHistory, OrderHistoryDTO>
         OrderHistoryDTO orderHistoryDTO = new OrderHistoryDTO();
         orderHistoryDTO.setId(orderHistory.getId());
         orderHistoryDTO.setOrderPlaceDateTime(orderHistory.getOrderPlaceDateTime());
-        orderHistoryDTO.setOrderState(orderHistory.getOrderState());
+        orderHistoryDTO.setOrderStateDTO(OrderStateDTO.valueOf(orderHistory.getOrderState().toString()));
         orderHistoryDTO.setClientOrderDTO(clientOrderMapper.convertToDTO(orderHistory.getClientOrder()));
         return orderHistoryDTO;
     }

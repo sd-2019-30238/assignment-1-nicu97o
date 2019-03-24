@@ -2,7 +2,9 @@ package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.mapper.impl;
 
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.mapper.Mapper;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserTypeDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.User;
+import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.UserType;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,7 +14,7 @@ public class UserMapper implements Mapper<User, UserDTO> {
         User user = new User();
         user.setUsername(userDTO.getUsername());
         user.setMail(userDTO.getMail());
-        user.setUserType(userDTO.getUserType());
+        user.setUserType(UserType.valueOf(userDTO.getUserTypeDTO().toString()));
         return user;
     }
 
@@ -21,7 +23,7 @@ public class UserMapper implements Mapper<User, UserDTO> {
         UserDTO userDTO = new UserDTO();
         userDTO.setUsername(user.getUsername());
         userDTO.setMail(user.getMail());
-        userDTO.setUserType(user.getUserType());
+        userDTO.setUserTypeDTO(UserTypeDTO.valueOf(user.getUserType().toString()));
         return userDTO;
     }
 }

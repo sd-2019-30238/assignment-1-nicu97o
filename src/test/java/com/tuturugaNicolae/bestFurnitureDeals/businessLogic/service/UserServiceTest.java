@@ -2,6 +2,7 @@ package com.tuturugaNicolae.bestFurnitureDeals.businessLogic.service;
 
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.configuration.BusinessLogicConfiguration;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserDTO;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserTypeDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.SecurityContext;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.UserService;
 import com.tuturugaNicolae.bestFurnitureDeals.exception.NoRightsToPerformThisOperationException;
@@ -70,7 +71,7 @@ public class UserServiceTest {
 
     @Test
     public void testUpdateUser_shouldBeSuccessful() {
-        UserDTO user = new UserDTO(PREINSERTED_USERDTO_1.getUsername(), "test@yahoo.com", PREINSERTED_USERDTO_1.getUserType());
+        UserDTO user = new UserDTO(PREINSERTED_USERDTO_1.getUsername(), "test@yahoo.com", PREINSERTED_USERDTO_1.getUserTypeDTO());
         userService.updateUser(user, PREINSERTED_USERDTO_1.getUsername());
         UserDTO updatedUser = userService.getUserByUsername(PREINSERTED_USER_1.getUsername());
         assertThat(updatedUser, is(user));
@@ -78,7 +79,7 @@ public class UserServiceTest {
 
     @Test(expected = NoRightsToPerformThisOperationException.class)
     public void testUpdateUserWhenLoggedUsernameIsDifferentFromUserToUpdate_shouldThrowException() {
-        UserDTO user = new UserDTO(PREINSERTED_USERDTO_1.getUsername(), "test@yahoo.com", PREINSERTED_USERDTO_1.getUserType());
+        UserDTO user = new UserDTO(PREINSERTED_USERDTO_1.getUsername(), "test@yahoo.com", PREINSERTED_USERDTO_1.getUserTypeDTO());
         userService.updateUser(user, PREINSERTED_USERDTO_2.getUsername());
     }
 
@@ -92,7 +93,7 @@ public class UserServiceTest {
 
     @Test
     public void testAddUser_shouldBeSuccessful() {
-        UserDTO user = new UserDTO("test", "test@yahoo.com", UserType.CLIENT);
+        UserDTO user = new UserDTO("test", "test@yahoo.com", UserTypeDTO.CLIENT);
         userService.addUser(user, "test123");
         List<UserDTO> users = userService.getAllUsers();
         assertThat(users.size(), is(NUMBER_OF_PREINSERTED_USERS + 1));

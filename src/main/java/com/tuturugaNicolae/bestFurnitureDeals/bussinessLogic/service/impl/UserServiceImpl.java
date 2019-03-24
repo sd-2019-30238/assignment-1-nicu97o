@@ -1,14 +1,14 @@
 package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.impl;
 
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.mapper.Mapper;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.UserService;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.validator.Validator;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.dao.UserDAO;
+import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.User;
 import com.tuturugaNicolae.bestFurnitureDeals.exception.InvalidUserException;
 import com.tuturugaNicolae.bestFurnitureDeals.exception.NoRightsToPerformThisOperationException;
 import com.tuturugaNicolae.bestFurnitureDeals.exception.NoUserFoundException;
-import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

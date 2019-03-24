@@ -1,6 +1,9 @@
 package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.aspect;
 
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserDTO;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserTypeDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.SecurityContext;
+import com.tuturugaNicolae.bestFurnitureDeals.exception.ForbiddenException;
 import com.tuturugaNicolae.bestFurnitureDeals.exception.UnauthorizedException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -23,6 +26,22 @@ public class SecurityAspect {
         if (!securityContext.isAuthenticated()) {
             throw new UnauthorizedException();
         }
+        return runMethod(proceedingJoinPoint);
+    }
+
+    @Around("com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.aspect.SecurityAOPExpressions.hasIsStaffAnnotation() && com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.aspect.SecurityAOPExpressions.servicePackageAndSubpackagePointcut()")
+    public Object checkIfLoggedUserHasCorrectRole(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        if (!securityContext.isAuthenticated()) {
+            throw new UnauthorizedException();
+        }
+        UserDTO loggedUser = securityContext.getLoggedUser().get();
+        if (loggedUser.getUserTypeDTO() != UserTypeDTO.STAFF) {
+            throw new ForbiddenException();
+        }
+        return runMethod(proceedingJoinPoint);
+    }
+
+    private Object runMethod(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object returnValue;
         try {
             returnValue = proceedingJoinPoint.proceed();

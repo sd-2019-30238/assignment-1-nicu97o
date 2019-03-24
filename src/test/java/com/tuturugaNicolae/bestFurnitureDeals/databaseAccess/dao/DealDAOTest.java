@@ -32,13 +32,13 @@ public class DealDAOTest extends GenericDAOTest<Deal> {
 
     @Test
     public void testInsertShouldBeSuccessful() {
-        Deal deal = new Deal(0l, "Test", DealType.REDUCED, PreinsertedDataContainer.PREINSERTED_FURNITURE_1, BigDecimal.ONE, true, 1);
+        Deal deal = new Deal(0l, "Test", DealType.EACH_PRODUCT_REDUCTION_5_PERCENT, PreinsertedDataContainer.PREINSERTED_FURNITURE_1, BigDecimal.ONE, true, 1);
         testInsert(dealDAO, deal, NUMBER_OF_PREINSERTED_DEALS + 1);
     }
 
     @Test
     public void testUpdate_shouldBeSuccessful() {
-        Deal deal = new Deal(PreinsertedDataContainer.PREINSERTED_DEAL_1.getId(), "Test", DealType.REDUCED, PreinsertedDataContainer.PREINSERTED_FURNITURE_1, BigDecimal.ONE, true, 1);
+        Deal deal = new Deal(PreinsertedDataContainer.PREINSERTED_DEAL_1.getId(), "Test", DealType.EACH_PRODUCT_REDUCTION_5_PERCENT, PreinsertedDataContainer.PREINSERTED_FURNITURE_1, BigDecimal.ONE, true, 1);
         testUpdate(dealDAO, deal, PreinsertedDataContainer.PREINSERTED_DEAL_1.getId());
     }
 
@@ -61,7 +61,7 @@ public class DealDAOTest extends GenericDAOTest<Deal> {
 
     @Test
     public void testFindDealsByType_shouldBeSuccessful(){
-        List<Deal> deals = dealDAO.findDealsByType(DealType.REDUCED);
+        List<Deal> deals = dealDAO.findDealsByType(DealType.EACH_PRODUCT_REDUCTION_5_PERCENT);
         assertThat(deals.size(), is(NUMBER_OF_PREINSERTED_DEALS));
     }
 }

@@ -3,8 +3,8 @@ insert into user (id, mail, password, userType, username) values (null, 'nicu.tu
 
 insert into furniture (id, description, name) values (null, 'Strong material', 'Chair');
 
-insert into deal (id, available, dealType, name, price, furnitureId, availableQuantity) values (null, true, 'REDUCED', 'Chair', 10, 1, 1);
-insert into deal (id, available, dealType, name, price, furnitureId, availableQuantity) values (null, true, 'REDUCED', 'Chair 2', 1, 1, 1);
+insert into deal (id, available, dealType, name, price, furnitureId, availableQuantity) values (null, true, 'EACH_PRODUCT_REDUCTION_5_PERCENT', 'Chair', 10, 1, 1);
+insert into deal (id, available, dealType, name, price, furnitureId, availableQuantity) values (null, true, 'EACH_PRODUCT_REDUCTION_5_PERCENT', 'Chair 2', 1, 1, 1);
 
 insert into clientOrder (id, approved, paymentMethod, totalPrice, userId, finished) values (null, false, 'CASH', 10, 1, true);
 insert into clientOrder (id, approved, paymentMethod, totalPrice, userId, finished) values (null, false, 'CASH', 10, 1, false);
