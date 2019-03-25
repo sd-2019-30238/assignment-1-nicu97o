@@ -13,7 +13,7 @@ public class AccountFrame extends JFrame {
      * Current frame components
      */
     private JPanel panel;
-    private JButton testButton;
+    private JButton logoutButton;
     private JButton productsMenuButton;
 
     /**
@@ -38,7 +38,7 @@ public class AccountFrame extends JFrame {
         this.userService = applicationContext.getBean("userServiceImpl", UserService.class);
         this.parentFrame = parentFrame;
         setContentPane(panel);
-        testButton.addActionListener(new AccountFrameListener());
+        logoutButton.addActionListener(new AccountFrameListener());
         productsMenuButton.addActionListener(new AccountFrameListener());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
@@ -47,12 +47,12 @@ public class AccountFrame extends JFrame {
     }
 
     private class AccountFrameListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == testButton) {
-                System.out.println(securityContext.getLoggedUser().get().getUsername());
-                System.out.println(userService.getAllUsers());
+            if (e.getSource() == logoutButton) {
+                parentFrame.setVisible(true);
+                setVisible(false);
+                securityContext.logout();
             } else if (e.getSource() == productsMenuButton) {
                 productsFrame.setVisible(true);
                 setVisible(false);

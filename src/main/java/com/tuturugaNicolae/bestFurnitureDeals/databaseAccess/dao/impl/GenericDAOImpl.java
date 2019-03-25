@@ -27,7 +27,7 @@ public abstract class GenericDAOImpl<T> implements GenericDAO<T> {
 
     @Override
     public void insert(T t) {
-        sessionFactory.getCurrentSession().save(t);
+        sessionFactory.openSession().merge(t);
     }
 
     @Override

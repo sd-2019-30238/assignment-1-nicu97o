@@ -10,7 +10,7 @@ public class UserValidator implements Validator<UserDTO> {
 
     @Override
     public boolean validate(UserDTO userDTO) {
-        return validateUsername(userDTO.getUsername()) && validateMail(userDTO.getMail());
+        return userDTO != null && validateUsername(userDTO.getUsername()) && validateMail(userDTO.getMail());
     }
 
     private boolean validateUsername(String username) {

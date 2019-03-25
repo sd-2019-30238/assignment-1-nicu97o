@@ -1,5 +1,5 @@
 package com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity;
 
 public enum OrderState {
-    PLACED, ACCEPTED, SENT, DELIVERED, COMPLETED
+    PIKING, PLACED, ACCEPTED, SENT, DELIVERED, COMPLETED
 }

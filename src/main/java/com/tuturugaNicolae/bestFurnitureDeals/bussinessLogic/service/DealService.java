@@ -2,6 +2,9 @@ package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service;
 
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.DealDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.DealTypeDTO;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.FurnitureDTO;
+import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.dao.DealDAO;
+import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.DealType;
 
 import java.math.BigDecimal;
 import java.util.List;

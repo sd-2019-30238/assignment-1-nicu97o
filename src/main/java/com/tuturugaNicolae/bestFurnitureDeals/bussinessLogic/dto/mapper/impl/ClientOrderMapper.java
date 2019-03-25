@@ -27,7 +27,11 @@ public class ClientOrderMapper implements Mapper<ClientOrder, ClientOrderDTO> {
         clientOrder.setFinished(clientOrderDTO.isFinished());
         clientOrder.setPaymentMethod(PaymentMethod.valueOf(clientOrderDTO.getPaymentMethodDTO().toString()));
         clientOrder.setTotalPrice(clientOrderDTO.getTotalPrice());
-        clientOrder.setClient(userMapper.convertToEntity(clientOrderDTO.getClient()));
+        if (clientOrderDTO.getClient() == null) {
+            clientOrderDTO.setClient(null);
+        } else {
+            clientOrder.setClient(userMapper.convertToEntity(clientOrderDTO.getClient()));
+        }
         return clientOrder;
     }
 
@@ -39,7 +43,11 @@ public class ClientOrderMapper implements Mapper<ClientOrder, ClientOrderDTO> {
         clientOrderDTO.setFinished(clientOrder.isFinished());
         clientOrderDTO.setPaymentMethodDTO(PaymentMethodDTO.valueOf(clientOrder.getPaymentMethod().toString()));
         clientOrderDTO.setTotalPrice(clientOrder.getTotalPrice());
-        clientOrderDTO.setClient(userMapper.convertToDTO(clientOrder.getClient()));
+        if (clientOrder.getClient() == null) {
+            clientOrderDTO.setClient(null);
+        } else {
+            clientOrderDTO.setClient(userMapper.convertToDTO(clientOrder.getClient()));
+        }
         return clientOrderDTO;
     }
 }

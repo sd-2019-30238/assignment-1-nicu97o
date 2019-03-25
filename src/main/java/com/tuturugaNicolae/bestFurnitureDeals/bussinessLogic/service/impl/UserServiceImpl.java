@@ -85,7 +85,8 @@ public class UserServiceImpl implements UserService {
         userDAO.insert(user);
     }
 
-    private User getUserEntityByUsername(String username) {
+    @Override
+    public User getUserEntityByUsername(String username) {
         Optional<User> user = userDAO.findByUsername(username);
         if (!user.isPresent()) {
             throw new NoUserFoundException("No user with username " + username + " found!");

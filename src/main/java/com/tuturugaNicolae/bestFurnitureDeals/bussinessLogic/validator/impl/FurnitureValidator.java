@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class FurnitureValidator implements Validator<FurnitureDTO> {
     @Override
     public boolean validate(FurnitureDTO furnitureDTO) {
-        return validateDescription(furnitureDTO.getDescription()) && validateName(furnitureDTO.getName());
+        return furnitureDTO != null && validateDescription(furnitureDTO.getDescription()) && validateName(furnitureDTO.getName());
     }
 
     private boolean validateName(String name) {

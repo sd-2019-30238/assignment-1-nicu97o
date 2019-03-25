@@ -3,8 +3,10 @@ package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.mapper.Mapper;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.dao.UserDAO;
+import com.tuturugaNicolae.bestFurnitureDeals.exception.BadCredentialsException;
 import com.tuturugaNicolae.bestFurnitureDeals.exception.NoUserFoundException;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.User;
+import com.tuturugaNicolae.bestFurnitureDeals.exception.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,9 +31,10 @@ public class SecurityContext {
         if (!user.isPresent()) {
             throw new NoUserFoundException();
         }
-        if (user.get().getPassword().equals(password)) {
-            loggedUser.set(userMapper.convertToDTO(user.get()));
+        if (!user.get().getPassword().equals(password)) {
+            throw new BadCredentialsException();
         }
+        loggedUser.set(userMapper.convertToDTO(user.get()));
     }
 
     public void logout() {

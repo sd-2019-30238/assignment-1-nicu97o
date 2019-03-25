@@ -14,6 +14,7 @@ public class Main {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(BusinessLogicConfiguration.class);
         UserService userService = applicationContext.getBean("userServiceImpl", UserService.class);
         userService.addUser(new UserDTO("tuturuga", "tuturuganicu@gmail.com", UserTypeDTO.STAFF), "12345");
+        userService.addUser(new UserDTO("nicu", "nicu@gmail.com", UserTypeDTO.CLIENT), "12345");
         SwingUtilities.invokeLater(() -> new LoginFrame(applicationContext));
     }
 }
