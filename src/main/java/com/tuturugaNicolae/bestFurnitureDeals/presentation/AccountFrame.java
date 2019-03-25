@@ -1,6 +1,8 @@
 package com.tuturugaNicolae.bestFurnitureDeals.presentation;
 
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller.UserController;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.SecurityContext;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.ClientOrderService;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.UserService;
 import org.springframework.context.ApplicationContext;
 
@@ -15,6 +17,10 @@ public class AccountFrame extends JFrame {
     private JPanel panel;
     private JButton logoutButton;
     private JButton productsMenuButton;
+    private JButton accountButton;
+    private JButton cartButton;
+    private JButton myOrdersButton;
+    private JButton ordersToApproveButton;
 
     /**
      * Parent frame components
@@ -26,7 +32,6 @@ public class AccountFrame extends JFrame {
      * Current frame components
      */
     private SecurityContext securityContext;
-    private UserService userService;
 
     public AccountFrame(ApplicationContext applicationContext, JFrame parentFrame) {
         initializeCurrentFrame(applicationContext, parentFrame);
@@ -35,11 +40,11 @@ public class AccountFrame extends JFrame {
 
     private void initializeCurrentFrame(ApplicationContext applicationContext, JFrame parentFrame) {
         this.securityContext = applicationContext.getBean("securityContext", SecurityContext.class);
-        this.userService = applicationContext.getBean("userServiceImpl", UserService.class);
         this.parentFrame = parentFrame;
         setContentPane(panel);
         logoutButton.addActionListener(new AccountFrameListener());
         productsMenuButton.addActionListener(new AccountFrameListener());
+        ordersToApproveButton.addActionListener(new AccountFrameListener());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setSize(1920, 1080);
@@ -56,6 +61,7 @@ public class AccountFrame extends JFrame {
             } else if (e.getSource() == productsMenuButton) {
                 productsFrame.setVisible(true);
                 setVisible(false);
+            } else if (e.getSource() == ordersToApproveButton) {
             }
         }
     }

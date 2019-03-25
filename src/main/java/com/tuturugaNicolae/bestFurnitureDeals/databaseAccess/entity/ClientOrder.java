@@ -39,7 +39,7 @@ public class ClientOrder {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<BoughtFurniture> boughtFurniture;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinColumn(name = "userId")
     private User client;

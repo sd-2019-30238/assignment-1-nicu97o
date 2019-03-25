@@ -1,24 +1,24 @@
 package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service;
 
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.ClientOrderDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.ClientOrder;
+import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.User;
 
 import java.util.List;
 
 public interface ClientOrderService {
-    void addClientOrder(ClientOrderDTO clientOrderDTO);
+    ClientOrder addClientOrder(ClientOrder clientOrder, User loggedUser);
 
-    void updateClientOrder(ClientOrderDTO clientOrderDTO);
+    void updateClientOrder(ClientOrder clientOrder, User loggedUser);
 
-    void deleteClientOrder(ClientOrderDTO clientOrderDTO);
+    void deleteClientOrder(ClientOrder clientOrder);
 
-    List<ClientOrderDTO> getAllClientOrders();
+    List<ClientOrder> getAllClientOrders();
 
-    ClientOrderDTO getClientOrderById(long id);
+    ClientOrder getClientOrderById(long id);
 
-    List<ClientOrderDTO> getAllFinishedOrdersForAnUser(String username);
+    List<ClientOrder> getAllFinishedOrdersForAnUser(String username);
 
-    ClientOrderDTO getCurrentClientOrderForAnUser(String username);
+    ClientOrder getCurrentClientOrderForAnUser(User loggedUser);
 
-    void approveClientOrder(ClientOrderDTO clientOrderDTO);
+    void approveClientOrder(ClientOrder clientOrder);
 }

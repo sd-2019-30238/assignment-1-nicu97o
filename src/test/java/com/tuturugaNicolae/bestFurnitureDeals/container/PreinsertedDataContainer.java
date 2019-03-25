@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 public abstract class PreinsertedDataContainer {
     public static final User PREINSERTED_USER_1 = new User(1L, "tuturuga", "12345", "tuturuganicu@gmail.com", UserType.CLIENT);
     public static final User PREINSERTED_USER_2 = new User(2L, "nicu", "abcdefg", "nicu.tuturuga@yahoo.com", UserType.STAFF);
-    public static final UserDTO PREINSERTED_USERDTO_1 = new UserDTO("tuturuga", "tuturuganicu@gmail.com", UserTypeDTO.CLIENT);
-    public static final UserDTO PREINSERTED_USERDTO_2 = new UserDTO("nicu", "nicu.tuturuga@yahoo.com", UserTypeDTO.STAFF);
+    public static final UserDTO PREINSERTED_USERDTO_1 = new UserDTO(1L, "tuturuga", "12345", "tuturuganicu@gmail.com", UserTypeDTO.CLIENT);
+    public static final UserDTO PREINSERTED_USERDTO_2 = new UserDTO(2L, "nicu", "abcdefg", "nicu.tuturuga@yahoo.com", UserTypeDTO.STAFF);
     public static final int NUMBER_OF_PREINSERTED_USERS = 2;
 
     public static final Furniture PREINSERTED_FURNITURE_1 = new Furniture(1L, "Chair", "Strong material");

@@ -1,28 +1,25 @@
 package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service;
 
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.DealDTO;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.DealTypeDTO;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.FurnitureDTO;
-import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.dao.DealDAO;
+import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.Deal;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.DealType;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 public interface DealService {
-    List<DealDTO> getDealsByType(DealTypeDTO dealTypeDTO);
+    List<Deal> getDealsByType(DealType dealType);
 
-    List<DealDTO> getDealsByPrice(BigDecimal minPrice, BigDecimal maxPrice);
+    List<Deal> getDealsByPrice(BigDecimal minPrice, BigDecimal maxPrice);
 
-    List<DealDTO> getDealsByName(String name);
+    List<Deal> getDealsByName(String name);
 
-    List<DealDTO> getAllDeals();
+    List<Deal> getAllDeals();
 
-    DealDTO getDealById(long id);
+    Deal getDealById(long id);
 
-    void addDeal(DealDTO dealDTO);
+    void addDeal(Deal deal);
 
-    void updateDeal(DealDTO dealDTO);
+    void updateDeal(Deal deal);
 
-    void deleteDeal(DealDTO dealDTO);
+    void deleteDeal(Deal deal);
 }

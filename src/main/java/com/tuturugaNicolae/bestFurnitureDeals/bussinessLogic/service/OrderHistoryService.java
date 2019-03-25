@@ -1,10 +1,12 @@
 package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service;
 
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.ClientOrderDTO;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.OrderHistoryDTO;
+import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.ClientOrder;
+import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.OrderHistory;
 
 public interface OrderHistoryService {
-    void updateOrderHistory(OrderHistoryDTO orderHistoryDTO);
+    void updateOrderHistoryState(OrderHistory orderHistory);
 
-    OrderHistoryDTO getOrderHistoryBasedOnClientOrder(ClientOrderDTO clientOrderDTO);
+    OrderHistory getOrderHistoryBasedOnClientOrder(ClientOrder clientOrder);
+
+    void addNewOrderHistory(OrderHistory orderHistory);
 }

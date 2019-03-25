@@ -5,6 +5,7 @@ import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserTypeDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.SecurityContext;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.UserService;
+import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.User;
 import com.tuturugaNicolae.bestFurnitureDeals.exception.NoRightsToPerformThisOperationException;
 import com.tuturugaNicolae.bestFurnitureDeals.exception.NoUserFoundException;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.UserType;
@@ -41,8 +42,8 @@ public class UserServiceTest {
 
     @Test
     public void testGetUserById_shouldBeSuccessful() {
-        UserDTO user = userService.getUserById(PREINSERTED_USER_1.getId());
-        assertThat(user, is(PREINSERTED_USERDTO_1));
+        User user = userService.getUserById(PREINSERTED_USER_1.getId());
+        assertThat(user, is(PREINSERTED_USER_1));
     }
 
     @Test(expected = NoUserFoundException.class)
@@ -52,8 +53,8 @@ public class UserServiceTest {
 
     @Test
     public void testGetUserByUsername_shouldBeSuccessful() {
-        UserDTO user = userService.getUserByUsername(PREINSERTED_USERDTO_1.getUsername());
-        assertThat(user, is(PREINSERTED_USERDTO_1));
+        User user = userService.getUserByUsername(PREINSERTED_USER_1.getUsername());
+        assertThat(user, is(PREINSERTED_USER_1));
     }
 
     @Test(expected = NoUserFoundException.class)
@@ -63,40 +64,37 @@ public class UserServiceTest {
 
     @Test
     public void testGetAllUsers_shouldBeSuccessful() {
-        List<UserDTO> users = userService.getAllUsers();
+        List<User> users = userService.getAllUsers();
         assertThat(users.size(), is(NUMBER_OF_PREINSERTED_USERS));
-        assertTrue(users.contains(PREINSERTED_USERDTO_1));
-        assertTrue(users.contains(PREINSERTED_USERDTO_2));
     }
 
     @Test
     public void testUpdateUser_shouldBeSuccessful() {
-        UserDTO user = new UserDTO(PREINSERTED_USERDTO_1.getUsername(), "test@yahoo.com", PREINSERTED_USERDTO_1.getUserTypeDTO());
-        userService.updateUser(user, PREINSERTED_USERDTO_1.getUsername());
-        UserDTO updatedUser = userService.getUserByUsername(PREINSERTED_USER_1.getUsername());
+        User user = new User(PREINSERTED_USER_1.getId(), PREINSERTED_USER_1.getUsername(), "test1231", "test@yahoo.com", PREINSERTED_USER_1.getUserType());
+        userService.updateUser(user, PREINSERTED_USER_1.getUsername());
+        User updatedUser = userService.getUserByUsername(PREINSERTED_USER_1.getUsername());
         assertThat(updatedUser, is(user));
     }
 
     @Test(expected = NoRightsToPerformThisOperationException.class)
     public void testUpdateUserWhenLoggedUsernameIsDifferentFromUserToUpdate_shouldThrowException() {
-        UserDTO user = new UserDTO(PREINSERTED_USERDTO_1.getUsername(), "test@yahoo.com", PREINSERTED_USERDTO_1.getUserTypeDTO());
-        userService.updateUser(user, PREINSERTED_USERDTO_2.getUsername());
+        User user = new User(null, PREINSERTED_USER_1.getUsername(), "test1231", "test@yahoo.com", PREINSERTED_USER_1.getUserType());
+        userService.updateUser(user, PREINSERTED_USER_2.getUsername());
     }
 
     @Test
     public void testDeleteUser_shouldBeSuccessful() {
         userService.deleteUser(PREINSERTED_USER_1.getUsername());
-        List<UserDTO> usersLeftAfterDelete = userService.getAllUsers();
+        List<User> usersLeftAfterDelete = userService.getAllUsers();
         assertThat(usersLeftAfterDelete.size(), is(NUMBER_OF_PREINSERTED_USERS - 1));
-        assertTrue(!usersLeftAfterDelete.contains(PREINSERTED_USERDTO_1));
+        assertTrue(!usersLeftAfterDelete.contains(PREINSERTED_USER_1));
     }
 
     @Test
     public void testAddUser_shouldBeSuccessful() {
-        UserDTO user = new UserDTO("test", "test@yahoo.com", UserTypeDTO.CLIENT);
+        User user = new User(null, "test", "test123", "test@yahoo.com", UserType.CLIENT);
         userService.addUser(user, "test123");
-        List<UserDTO> users = userService.getAllUsers();
+        List<User> users = userService.getAllUsers();
         assertThat(users.size(), is(NUMBER_OF_PREINSERTED_USERS + 1));
-        assertTrue(users.contains(user));
     }
 }

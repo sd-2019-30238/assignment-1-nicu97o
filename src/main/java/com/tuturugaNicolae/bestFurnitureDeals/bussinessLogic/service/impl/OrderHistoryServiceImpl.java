@@ -7,6 +7,7 @@ import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.OrderStat
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.IsStaff;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.OrderHistoryService;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.dao.OrderHistoryDAO;
+import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.ClientOrder;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.OrderHistory;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.OrderState;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,36 +17,39 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class OrderHistoryServiceImpl implements OrderHistoryService {
-    private Mapper<OrderHistory, OrderHistoryDTO> mapper;
     private OrderHistoryDAO orderHistoryDAO;
 
     @Autowired
-    public OrderHistoryServiceImpl(Mapper<OrderHistory, OrderHistoryDTO> mapper, OrderHistoryDAO orderHistoryDAO) {
-        this.mapper = mapper;
+    public OrderHistoryServiceImpl(OrderHistoryDAO orderHistoryDAO) {
         this.orderHistoryDAO = orderHistoryDAO;
     }
 
     @Override
     @IsStaff
-    public void updateOrderHistory(OrderHistoryDTO orderHistoryDTO) {
-        if (orderHistoryDTO.getOrderStateDTO().equals(OrderStateDTO.PIKING)) {
-            orderHistoryDTO.setOrderStateDTO(OrderStateDTO.PLACED);
-        } else if (orderHistoryDTO.getOrderStateDTO().equals(OrderStateDTO.PLACED)) {
-            orderHistoryDTO.setOrderStateDTO(OrderStateDTO.ACCEPTED);
-        } else if (orderHistoryDTO.getOrderStateDTO().equals(OrderStateDTO.ACCEPTED)) {
-            orderHistoryDTO.setOrderStateDTO(OrderStateDTO.SENT);
-        } else if (orderHistoryDTO.getOrderStateDTO().equals(OrderStateDTO.SENT)) {
-            orderHistoryDTO.setOrderStateDTO(OrderStateDTO.DELIVERED);
-        } else if (orderHistoryDTO.getOrderStateDTO().equals(OrderStateDTO.DELIVERED)) {
-            orderHistoryDTO.setOrderStateDTO(OrderStateDTO.COMPLETED);
+    public void updateOrderHistoryState(OrderHistory orderHistory) {
+        if (orderHistory.getOrderState().equals(OrderState.PIKING)) {
+            orderHistory.setOrderState(OrderState.PLACED);
+        } else if (orderHistory.getOrderState().equals(OrderState.PLACED)) {
+            orderHistory.setOrderState(OrderState.ACCEPTED);
+        } else if (orderHistory.getOrderState().equals(OrderState.ACCEPTED)) {
+            orderHistory.setOrderState(OrderState.SENT);
+        } else if (orderHistory.getOrderState().equals(OrderState.SENT)) {
+            orderHistory.setOrderState(OrderState.DELIVERED);
+        } else if (orderHistory.getOrderState().equals(OrderState.DELIVERED)) {
+            orderHistory.setOrderState(OrderState.COMPLETED);
         }
-        OrderHistory orderHistory = orderHistoryDAO.selectById(orderHistoryDTO.getId());
-        orderHistory.setOrderState(OrderState.valueOf(orderHistoryDTO.getOrderStateDTO().toString()));
+        OrderHistory oldOrderHistory = orderHistoryDAO.selectById(orderHistory.getId());
+        oldOrderHistory.setOrderState(OrderState.valueOf(orderHistory.getOrderState().toString()));
         orderHistoryDAO.update(orderHistory);
     }
 
     @Override
-    public OrderHistoryDTO getOrderHistoryBasedOnClientOrder(ClientOrderDTO clientOrderDTO) {
-        return mapper.convertToDTO(orderHistoryDAO.findOrderHistoryBasedOnClientOrderId(clientOrderDTO.getId()).get());
+    public OrderHistory getOrderHistoryBasedOnClientOrder(ClientOrder clientOrder) {
+        return orderHistoryDAO.findOrderHistoryBasedOnClientOrderId(clientOrder.getId()).get();
+    }
+
+    @Override
+    public void addNewOrderHistory(OrderHistory orderHistory) {
+        orderHistoryDAO.insert(orderHistory);
     }
 }

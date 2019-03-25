@@ -25,7 +25,7 @@ public class Deal {
     @Enumerated(EnumType.STRING)
     private DealType dealType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinColumn(name = "furnitureId")
     private Furniture furniture;

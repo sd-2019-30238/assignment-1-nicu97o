@@ -3,6 +3,8 @@ package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.aspect;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserTypeDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.SecurityContext;
+import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.User;
+import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.UserType;
 import com.tuturugaNicolae.bestFurnitureDeals.exception.ForbiddenException;
 import com.tuturugaNicolae.bestFurnitureDeals.exception.UnauthorizedException;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -34,8 +36,8 @@ public class SecurityAspect {
         if (!securityContext.isAuthenticated()) {
             throw new UnauthorizedException();
         }
-        UserDTO loggedUser = securityContext.getLoggedUser().get();
-        if (loggedUser.getUserTypeDTO() != UserTypeDTO.STAFF) {
+        User loggedUser = securityContext.getLoggedUser().get();
+        if (loggedUser.getUserType() != UserType.STAFF) {
             throw new ForbiddenException();
         }
         return runMethod(proceedingJoinPoint);

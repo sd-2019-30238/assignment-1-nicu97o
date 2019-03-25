@@ -19,13 +19,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(unique = true, length = 30)
     private String username;
 
     @Column
     private String password;
 
-    @Column
+    @Column(unique = true, length = 30)
     private String mail;
 
     @Column

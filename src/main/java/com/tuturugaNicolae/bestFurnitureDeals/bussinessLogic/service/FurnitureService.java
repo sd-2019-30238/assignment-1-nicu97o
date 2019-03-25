@@ -1,17 +1,17 @@
 package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service;
 
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.FurnitureDTO;
+import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.Furniture;
 
 import java.util.List;
 
 public interface FurnitureService {
-    FurnitureDTO getFurnitureById(long id);
+    Furniture getFurnitureById(long id);
 
-    List<FurnitureDTO> getAllFurniture();
+    List<Furniture> getAllFurniture();
 
-    void updateFurniture(FurnitureDTO furnitureDTO);
+    void updateFurniture(Furniture furniture);
 
-    void deleteFurniture(FurnitureDTO furnitureDTO);
+    void deleteFurniture(Furniture furniture);
 
-    void addFurniture(FurnitureDTO furnitureDTO);
+    void addFurniture(Furniture furniture);
 }

@@ -23,7 +23,7 @@ public class FeedbackMessage {
     @Column
     private String messageBody;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinColumn(name = "orderHistoryId")
     @EqualsAndHashCode.Exclude

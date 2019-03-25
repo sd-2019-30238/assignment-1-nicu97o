@@ -15,14 +15,12 @@ import java.util.Optional;
 
 @Component
 public class SecurityContext {
-    private ThreadLocal<UserDTO> loggedUser = new ThreadLocal<>();
+    private ThreadLocal<User> loggedUser = new ThreadLocal<>();
     private UserDAO userDAO;
-    private Mapper<User, UserDTO> userMapper;
 
     @Autowired
-    public SecurityContext(UserDAO userDAO, Mapper<User, UserDTO> userMapper) {
+    public SecurityContext(UserDAO userDAO) {
         this.userDAO = userDAO;
-        this.userMapper = userMapper;
     }
 
     @Transactional
@@ -34,14 +32,14 @@ public class SecurityContext {
         if (!user.get().getPassword().equals(password)) {
             throw new BadCredentialsException();
         }
-        loggedUser.set(userMapper.convertToDTO(user.get()));
+        loggedUser.set(user.get());
     }
 
     public void logout() {
         loggedUser.remove();
     }
 
-    public ThreadLocal<UserDTO> getLoggedUser() {
+    public ThreadLocal<User> getLoggedUser() {
         return loggedUser;
     }
 

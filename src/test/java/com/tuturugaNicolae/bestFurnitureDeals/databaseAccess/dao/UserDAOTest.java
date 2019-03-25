@@ -25,7 +25,7 @@ public class UserDAOTest extends GenericDAOTest<User> {
 
     @Test
     public void testInsertShouldBeSuccessful() {
-        User user = new User("nicu", "123", "nicu.tuturuga@yahoo.com", UserType.STAFF);
+        User user = new User("nicu2", "12345", "nicu@yahoo.com", UserType.STAFF);
         testInsert(userDAO, user, PreinsertedDataContainer.NUMBER_OF_PREINSERTED_USERS + 1);
     }
 
