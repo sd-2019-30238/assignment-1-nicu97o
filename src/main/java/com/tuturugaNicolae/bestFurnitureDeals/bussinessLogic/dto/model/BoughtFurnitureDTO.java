@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 public class BoughtFurnitureDTO {
     private Long id;
     private FurnitureDTO furnitureDTO;

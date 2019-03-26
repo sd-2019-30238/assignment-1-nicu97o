@@ -9,6 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class ClientOrderDAOTest extends GenericDAOTest<ClientOrder> {
     @Autowired
@@ -39,5 +44,25 @@ public class ClientOrderDAOTest extends GenericDAOTest<ClientOrder> {
     @Test
     public void testDelete_shouldBeSuccessful() {
         testDelete(clientOrderDAO, PreinsertedDataContainer.PREINSERTED_CLIENT_ORDER_1.getId(), PreinsertedDataContainer.NUMBER_OF_PREINSERTED_CLIENT_ORDERS - 1);
+    }
+
+    @Test
+    public void testFindClientOrderByUser_shouldBeSuccessful(){
+        ClientOrder clientOrder = clientOrderDAO.findClientOrderByUser(PreinsertedDataContainer.PREINSERTED_USER_1.getUsername()).get();
+        assertThat(clientOrder, is(PreinsertedDataContainer.PREINSERTED_CLIENT_ORDER_2));
+    }
+
+    @Test
+    public void testFindAllFinishedOrdersForAnUser_shouldBeSuccessful(){
+        List<ClientOrder> clientOrders = clientOrderDAO.findAllFinishedOrdersForAnUser(PreinsertedDataContainer.PREINSERTED_USER_1.getUsername());
+        assertTrue(clientOrders.contains(PreinsertedDataContainer.PREINSERTED_CLIENT_ORDER_1));
+        assertTrue(!clientOrders.contains(PreinsertedDataContainer.PREINSERTED_CLIENT_ORDER_2));
+    }
+
+    @Test
+    public void testGetAllFinishedOrders_shouldBeSuccessful(){
+        List<ClientOrder> clientOrders = clientOrderDAO.getAllFinishedOrders();
+        assertTrue(clientOrders.contains(PreinsertedDataContainer.PREINSERTED_CLIENT_ORDER_1));
+        assertTrue(!clientOrders.contains(PreinsertedDataContainer.PREINSERTED_CLIENT_ORDER_2));
     }
 }

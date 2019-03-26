@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 public class ClientOrderDTO {
     private Long id;
     private boolean approved;

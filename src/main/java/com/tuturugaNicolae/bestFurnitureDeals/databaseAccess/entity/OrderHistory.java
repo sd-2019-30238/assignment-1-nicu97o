@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @Entity
 @Table
+@ToString
 public class OrderHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +23,7 @@ public class OrderHistory {
     @Cascade({org.hibernate.annotations.CascadeType.ALL})
     @JoinColumn(name = "orderId")
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private ClientOrder clientOrder;
 
     @Column
@@ -34,6 +36,7 @@ public class OrderHistory {
     @OneToOne(mappedBy = "orderHistory", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private FeedbackMessage feedbackMessage;
 
     public OrderHistory(Long id, LocalDateTime orderPlaceDateTime, OrderState orderState) {

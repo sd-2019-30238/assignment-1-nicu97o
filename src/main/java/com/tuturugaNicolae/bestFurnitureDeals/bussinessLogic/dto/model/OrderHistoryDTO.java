@@ -9,9 +9,11 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 public class OrderHistoryDTO {
     private Long id;
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private ClientOrderDTO clientOrderDTO;
     private LocalDateTime orderPlaceDateTime;
     private OrderStateDTO orderStateDTO;

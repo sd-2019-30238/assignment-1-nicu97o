@@ -7,10 +7,12 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 public class FeedbackMessageDTO {
     private Long id;
     private String title;
     private String messageBody;
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private OrderHistoryDTO orderHistoryDTO;
 }

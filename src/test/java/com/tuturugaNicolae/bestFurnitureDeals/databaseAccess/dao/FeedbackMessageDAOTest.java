@@ -5,6 +5,9 @@ import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.FeedbackMess
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+
 public class FeedbackMessageDAOTest extends GenericDAOTest<FeedbackMessage> {
     @Autowired
     private FeedbackMessageDAO feedbackMessageDAO;
@@ -34,5 +37,11 @@ public class FeedbackMessageDAOTest extends GenericDAOTest<FeedbackMessage> {
     @Test
     public void testDelete_shouldBeSuccessful() {
         testDelete(feedbackMessageDAO, PreinsertedDataContainer.PREINSERTED_FEEDBACK_MESSAGE_1.getId(), PreinsertedDataContainer.NUMBER_OF_PREINSERTED_FEEDBACK_MESSAGES - 1);
+    }
+
+    @Test
+    public void testGetFeedbackMessageByClientOrderId_shouldBeSuccessful(){
+        FeedbackMessage feedbackMessage = feedbackMessageDAO.getFeedbackMessageByClientOrderId(PreinsertedDataContainer.PREINSERTED_CLIENT_ORDER_1.getId()).get();
+        assertThat(feedbackMessage, is(PreinsertedDataContainer.PREINSERTED_FEEDBACK_MESSAGE_1));
     }
 }

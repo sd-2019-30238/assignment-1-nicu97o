@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 public class DealDTO {
     private Long id;
     private String name;
