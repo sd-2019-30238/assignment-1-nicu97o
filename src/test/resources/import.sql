@@ -5,7 +5,7 @@ insert into furniture (id, description, name) values (null, 'Strong material', '
 insert into furniture (id, description, name) values (null, 'Strong material', 'Table');
 
 insert into deal (id, available, dealType, name, price, furnitureId, availableQuantity) values (null, true, 'EACH_PRODUCT_REDUCTION_5_PERCENT', 'Chair', 10, 1, 1);
-insert into deal (id, available, dealType, name, price, furnitureId, availableQuantity) values (null, true, 'EACH_PRODUCT_REDUCTION_5_PERCENT', 'Chair 2', 1, 1, 1);
+insert into deal (id, available, dealType, name, price, furnitureId, availableQuantity) values (null, true, 'NORMAL', 'Chair 2', 1, 1, 1);
 
 insert into clientOrder (id, approved, paymentMethod, totalPrice, userId, finished) values (null, false, 'CASH', 10, 1, true);
 insert into clientOrder (id, approved, paymentMethod, totalPrice, userId, finished) values (null, false, 'CASH', 10, 1, false);

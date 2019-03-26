@@ -32,6 +32,6 @@ public class DealValidator implements Validator<DealDTO> {
     }
 
     private boolean validatePrice(BigDecimal price) {
-        return price.compareTo(BigDecimal.ZERO) == 0 || price.compareTo(BigDecimal.ZERO) == 1;
+        return price != null && price.compareTo(BigDecimal.ZERO) == 0 || price.compareTo(BigDecimal.ZERO) == 1;
     }
 }

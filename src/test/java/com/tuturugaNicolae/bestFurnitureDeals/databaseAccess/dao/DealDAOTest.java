@@ -62,6 +62,6 @@ public class DealDAOTest extends GenericDAOTest<Deal> {
     @Test
     public void testFindDealsByType_shouldBeSuccessful(){
         List<Deal> deals = dealDAO.findDealsByType(DealType.EACH_PRODUCT_REDUCTION_5_PERCENT);
-        assertThat(deals.size(), is(NUMBER_OF_PREINSERTED_DEALS));
+        assertThat(deals.size(), is(1));
     }
 }

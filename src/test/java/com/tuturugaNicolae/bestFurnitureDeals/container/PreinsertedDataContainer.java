@@ -19,7 +19,7 @@ public abstract class PreinsertedDataContainer {
 
     public static final Deal PREINSERTED_DEAL_1 = new Deal(1L, "Chair", DealType.EACH_PRODUCT_REDUCTION_5_PERCENT, PREINSERTED_FURNITURE_1, BigDecimal.TEN, true, 1);
     public static final DealDTO PREINSERTED_DEALDTO_1 = new DealDTO(1L, "Chair", DealTypeDTO.EACH_PRODUCT_REDUCTION_5_PERCENT, PREINSERTED_FURNITUREDTO_1, BigDecimal.TEN, true, 1);
-    public static final Deal PREINSERTED_DEAL_2 = new Deal(2L, "Chair 2", DealType.EACH_PRODUCT_REDUCTION_5_PERCENT, PREINSERTED_FURNITURE_1, BigDecimal.ONE, true, 1);
+    public static final Deal PREINSERTED_DEAL_2 = new Deal(2L, "Chair 2", DealType.NORMAL, PREINSERTED_FURNITURE_1, BigDecimal.ONE, true, 1);
     public static final DealDTO PREINSERTED_DEALDTO_2 = new DealDTO(2L, "Chair 2", DealTypeDTO.EACH_PRODUCT_REDUCTION_5_PERCENT, PREINSERTED_FURNITUREDTO_1, BigDecimal.ONE, true, 1);
     public static final int NUMBER_OF_PREINSERTED_DEALS = 2;
 

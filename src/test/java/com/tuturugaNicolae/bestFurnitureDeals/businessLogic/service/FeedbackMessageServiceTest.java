@@ -1,23 +1,18 @@
 package com.tuturugaNicolae.bestFurnitureDeals.businessLogic.service;
 
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.configuration.BusinessLogicConfiguration;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.FeedbackMessageDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.CantPostFeedbackMessageException;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.NoFeedBackMessageFound;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.SecurityContext;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.ClientOrderService;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.FeedbackMessageService;
-import com.tuturugaNicolae.bestFurnitureDeals.container.PreinsertedDataContainer;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.dao.FeedbackMessageDAO;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.dao.OrderHistoryDAO;
-import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.ClientOrder;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.FeedbackMessage;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.OrderHistory;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.OrderState;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.omg.CORBA.ORB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
