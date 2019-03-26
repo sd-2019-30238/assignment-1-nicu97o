@@ -25,10 +25,11 @@ public class BoughtFurnitureServiceImpl implements BoughtFurnitureService {
     public void addNewFurnitureToCurrentClientOrder(BoughtFurniture boughtFurniture, ClientOrder clientOrder) {
         boughtFurniture.setClientOrder(clientOrder);
         boughtFurnitureDAO.insert(boughtFurniture);
+        clientOrder.setTotalPrice(clientOrder.getTotalPrice().add(boughtFurniture.getPrice()));
     }
 
     @Override
-    public void updateFurniture(BoughtFurniture boughtFurniture) {
+    public void updateBoughtFurniture(BoughtFurniture boughtFurniture) {
         BoughtFurniture oldBoughtFurniture = getBoughtFurnitureById(boughtFurniture.getId());
         oldBoughtFurniture.setPrice(boughtFurniture.getPrice());
         oldBoughtFurniture.setBoughtQuantity(boughtFurniture.getBoughtQuantity());
@@ -53,7 +54,8 @@ public class BoughtFurnitureServiceImpl implements BoughtFurnitureService {
     }
 
     @Override
-    public void deleteBoughtFurniture(BoughtFurniture boughtFurniture) {
+    public void deleteBoughtFurniture(BoughtFurniture boughtFurniture, ClientOrder clientOrder) {
         boughtFurnitureDAO.delete(getBoughtFurnitureById(boughtFurniture.getId()));
+        clientOrder.setTotalPrice(clientOrder.getTotalPrice().subtract(boughtFurniture.getPrice()));
     }
 }

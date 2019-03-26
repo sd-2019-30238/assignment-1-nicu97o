@@ -14,5 +14,6 @@ public class BoughtFurnitureDTO {
     private FurnitureDTO furnitureDTO;
     private int boughtQuantity;
     private BigDecimal price;
+    @ToString.Exclude
     private ClientOrderDTO clientOrderDTO;
 }

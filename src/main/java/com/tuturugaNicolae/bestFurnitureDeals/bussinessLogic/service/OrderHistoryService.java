@@ -9,4 +9,8 @@ public interface OrderHistoryService {
     OrderHistory getOrderHistoryBasedOnClientOrder(ClientOrder clientOrder);
 
     void addNewOrderHistory(OrderHistory orderHistory);
+
+    void placeOrder(OrderHistory orderHistory);
+
+    OrderHistory getOrderHistoryById(long id);
 }

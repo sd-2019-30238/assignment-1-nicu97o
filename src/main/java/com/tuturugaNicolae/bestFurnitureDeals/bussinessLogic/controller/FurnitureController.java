@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 
 @Component
 public class FurnitureController {
-    private Validator<Furniture> furnitureValidator;
+    private Validator<FurnitureDTO> furnitureValidator;
     private FurnitureService furnitureService;
     private Mapper<Furniture, FurnitureDTO> mapper;
 
     @Autowired
-    public FurnitureController(Validator<Furniture> furnitureValidator, FurnitureService furnitureService, Mapper<Furniture, FurnitureDTO> mapper) {
+    public FurnitureController(Validator<FurnitureDTO> furnitureValidator, FurnitureService furnitureService, Mapper<Furniture, FurnitureDTO> mapper) {
         this.furnitureValidator = furnitureValidator;
         this.furnitureService = furnitureService;
         this.mapper = mapper;
@@ -34,11 +34,10 @@ public class FurnitureController {
     }
 
     public void updateFurniture(FurnitureDTO furnitureDTO) {
-        Furniture furniture = mapper.convertToEntity(furnitureDTO);
-        if (!furnitureValidator.validate(furniture)) {
+        if (!furnitureValidator.validate(furnitureDTO)) {
             throw new InvalidFurnitureException();
         }
-        furnitureService.updateFurniture(furniture);
+        furnitureService.updateFurniture(mapper.convertToEntity(furnitureDTO));
     }
 
     public void deleteFurniture(FurnitureDTO furnitureDTO) {
@@ -46,8 +45,7 @@ public class FurnitureController {
     }
 
     public void addFurniture(FurnitureDTO furnitureDTO) {
-        Furniture furniture = mapper.convertToEntity(furnitureDTO);
-        if (!furnitureValidator.validate(furniture)) {
+        if (!furnitureValidator.validate(furnitureDTO)) {
             throw new InvalidFurnitureException();
         }
         furnitureService.addFurniture(mapper.convertToEntity(furnitureDTO));

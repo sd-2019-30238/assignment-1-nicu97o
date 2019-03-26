@@ -22,9 +22,11 @@ public class OrderHistoryMapper implements Mapper<OrderHistory, OrderHistoryDTO>
     @Override
     public OrderHistory convertToEntity(OrderHistoryDTO orderHistoryDTO) {
         OrderHistory orderHistory = new OrderHistory();
+        orderHistory.setId(null);
         orderHistory.setId(orderHistoryDTO.getId());
         orderHistory.setOrderPlaceDateTime(orderHistoryDTO.getOrderPlaceDateTime());
         orderHistory.setOrderState(OrderState.valueOf(orderHistoryDTO.getOrderStateDTO().toString()));
+        orderHistory.setClientOrder(null);
         orderHistory.setClientOrder(clientOrderMapper.convertToEntity(orderHistoryDTO.getClientOrderDTO()));
         return orderHistory;
     }

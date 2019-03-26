@@ -22,7 +22,7 @@ public class LoginFrame extends JFrame {
      * Other frames
      */
     private RegisterFrame registerFrame;
-    private AccountFrame accountFrame;
+    private MainMenuFrame mainMenuFrame;
 
     /**
      * Current frame variables
@@ -32,7 +32,7 @@ public class LoginFrame extends JFrame {
     public LoginFrame(ApplicationContext applicationContext) {
         initializeCurrentFrame(applicationContext);
         registerFrame = new RegisterFrame(applicationContext, this);
-        accountFrame = new AccountFrame(applicationContext, this);
+        mainMenuFrame = new MainMenuFrame(applicationContext, this);
     }
 
     private void initializeCurrentFrame(ApplicationContext applicationContext) {
@@ -52,7 +52,7 @@ public class LoginFrame extends JFrame {
             if (e.getSource() == submit) {
                 try {
                     securityContext.authenticate(usernameTextField.getText(), passwordTextField.getText());
-                    accountFrame.setVisible(true);
+                    mainMenuFrame.setVisible(true);
                     setVisible(false);
                 } catch (Exception exp) {
                     messagesTextField.setText(exp.getMessage());

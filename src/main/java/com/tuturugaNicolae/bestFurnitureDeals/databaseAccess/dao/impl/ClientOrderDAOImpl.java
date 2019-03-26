@@ -16,12 +16,18 @@ public class ClientOrderDAOImpl extends GenericDAOImpl<ClientOrder> implements C
     @Override
     public Optional<ClientOrder> findClientOrderByUser(String username) {
         return sessionFactory.getCurrentSession().createQuery("from " + ClientOrder.class.getName() + " o where o.client.username = :username and " +
-                "finished = false").setParameter("username", username).uniqueResultOptional();
+                "o.finished = false").setParameter("username", username).uniqueResultOptional();
     }
 
     @Override
     public List<ClientOrder> findAllFinishedOrdersForAnUser(String username) {
         return sessionFactory.getCurrentSession().createQuery("from " + ClientOrder.class.getName() + " o where o.client.username = :username and " +
-                "finished = true").setParameter("username", username).list();
+                "o.finished = true").setParameter("username", username).list();
+    }
+
+    @Override
+    public List<ClientOrder> getAllFinishedOrders() {
+        return sessionFactory.getCurrentSession().createQuery("from " + ClientOrder.class.getName() + " o where " +
+                "o.finished = true").list();
     }
 }

@@ -11,5 +11,6 @@ public class FeedbackMessageDTO {
     private Long id;
     private String title;
     private String messageBody;
+    @ToString.Exclude
     private OrderHistoryDTO orderHistoryDTO;
 }

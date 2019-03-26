@@ -21,4 +21,6 @@ public interface ClientOrderService {
     ClientOrder getCurrentClientOrderForAnUser(User loggedUser);
 
     void approveClientOrder(ClientOrder clientOrder);
+
+    List<ClientOrder> getAllFinishedClientOrders();
 }

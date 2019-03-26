@@ -39,7 +39,7 @@ public class BoughtFurnitureMapper implements Mapper<BoughtFurniture, BoughtFurn
         boughtFurnitureDTO.setBoughtQuantity(boughtFurniture.getBoughtQuantity());
         boughtFurnitureDTO.setClientOrderDTO(clientOrderMapper.convertToDTO(boughtFurniture.getClientOrder()));
         boughtFurnitureDTO.setFurnitureDTO(furnitureMapper.convertToDTO(boughtFurniture.getFurniture()));
-        boughtFurniture.setPrice(boughtFurnitureDTO.getPrice());
+        boughtFurnitureDTO.setPrice(boughtFurniture.getPrice());
         return boughtFurnitureDTO;
     }
 }

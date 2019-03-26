@@ -49,4 +49,8 @@ public class SecurityContext {
         }
         return false;
     }
+
+    public String getNameOfAuthenticatedUser() {
+        return loggedUser.get().getUsername();
+    }
 }

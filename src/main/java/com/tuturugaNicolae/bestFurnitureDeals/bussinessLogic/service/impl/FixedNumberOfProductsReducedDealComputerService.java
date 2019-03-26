@@ -17,6 +17,6 @@ public class FixedNumberOfProductsReducedDealComputerService implements DealComp
             return new BoughtFurniture(0L, deal.getFurniture(), quantity, reducedPrice.add(deal.getPrice().multiply(BigDecimal.valueOf(quantity - NUMBER_OF_REDUCED_PRODUCTS))),
                     clientOrder);
         }
-        return new BoughtFurniture(0L, deal.getFurniture(), quantity, deal.getPrice(), clientOrder);
+        return new BoughtFurniture(0L, deal.getFurniture(), quantity, deal.getPrice().multiply(BigDecimal.valueOf(quantity)), clientOrder);
     }
 }

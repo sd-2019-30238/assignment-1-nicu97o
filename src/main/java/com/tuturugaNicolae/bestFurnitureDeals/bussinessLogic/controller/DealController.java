@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
 public class DealController {
     private DealService dealService;
     private Mapper<Deal, DealDTO> mapper;
-    private Validator<Deal> dealValidator;
+    private Validator<DealDTO> dealValidator;
 
     @Autowired
-    public DealController(DealService dealService, Mapper<Deal, DealDTO> mapper, Validator<Deal> dealValidator) {
+    public DealController(DealService dealService, Mapper<Deal, DealDTO> mapper, Validator<DealDTO> dealValidator) {
         this.dealService = dealService;
         this.mapper = mapper;
         this.dealValidator = dealValidator;
@@ -49,22 +49,22 @@ public class DealController {
     }
 
     public void addDeal(DealDTO dealDTO) {
-        Deal deal = mapper.convertToEntity(dealDTO);
-        if (!dealValidator.validate(deal)) {
+        if (!dealValidator.validate(dealDTO)) {
             throw new InvalidDealException();
         }
+        Deal deal = mapper.convertToEntity(dealDTO);
         dealService.addDeal(deal);
     }
 
     public void updateDeal(DealDTO dealDTO) {
-        Deal deal = mapper.convertToEntity(dealDTO);
-        if (!dealValidator.validate(deal)) {
+        if (!dealValidator.validate(dealDTO)) {
             throw new InvalidDealException();
         }
+        Deal deal = mapper.convertToEntity(dealDTO);
         dealService.updateDeal(deal);
     }
 
     public void deleteDeal(DealDTO dealDTO) {
-
+        dealService.deleteDeal(mapper.convertToEntity(dealDTO));
     }
 }

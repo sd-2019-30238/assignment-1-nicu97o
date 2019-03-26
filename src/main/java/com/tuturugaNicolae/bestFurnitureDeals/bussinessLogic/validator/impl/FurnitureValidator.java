@@ -1,13 +1,13 @@
 package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.validator.impl;
 
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.FurnitureDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.validator.Validator;
-import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.Furniture;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FurnitureValidator implements Validator<Furniture> {
+public class FurnitureValidator implements Validator<FurnitureDTO> {
     @Override
-    public boolean validate(Furniture furniture) {
+    public boolean validate(FurnitureDTO furniture) {
         return furniture != null && validateDescription(furniture.getDescription()) && validateName(furniture.getName());
     }
 

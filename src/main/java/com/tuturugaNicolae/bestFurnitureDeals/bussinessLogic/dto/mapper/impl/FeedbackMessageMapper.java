@@ -23,7 +23,11 @@ public class FeedbackMessageMapper implements Mapper<FeedbackMessage, FeedbackMe
         feedbackMessage.setId(feedbackMessageDTO.getId());
         feedbackMessage.setTitle(feedbackMessageDTO.getTitle());
         feedbackMessage.setMessageBody(feedbackMessageDTO.getMessageBody());
-        feedbackMessage.setOrderHistory(orderHistoryMapper.convertToEntity(feedbackMessageDTO.getOrderHistoryDTO()));
+        if (feedbackMessageDTO.getOrderHistoryDTO() == null) {
+            feedbackMessage.setOrderHistory(null);
+        } else {
+            feedbackMessage.setOrderHistory(orderHistoryMapper.convertToEntity(feedbackMessageDTO.getOrderHistoryDTO()));
+        }
         return feedbackMessage;
     }
 

@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @ToString
 public class OrderHistoryDTO {
     private Long id;
+    @ToString.Exclude
     private ClientOrderDTO clientOrderDTO;
     private LocalDateTime orderPlaceDateTime;
     private OrderStateDTO orderStateDTO;

@@ -9,4 +9,6 @@ public interface ClientOrderDAO extends GenericDAO<ClientOrder> {
     Optional<ClientOrder> findClientOrderByUser(String username);
 
     List<ClientOrder> findAllFinishedOrdersForAnUser(String username);
+
+    List<ClientOrder> getAllFinishedOrders();
 }

@@ -1,15 +1,15 @@
 package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.validator.impl;
 
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.ClientOrderDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.validator.Validator;
-import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.ClientOrder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
 @Component
-public class ClientOrderValidator implements Validator<ClientOrder> {
+public class ClientOrderValidator implements Validator<ClientOrderDTO> {
     @Override
-    public boolean validate(ClientOrder clientOrder) {
+    public boolean validate(ClientOrderDTO clientOrder) {
         return validatePrice(clientOrder.getTotalPrice());
     }
 

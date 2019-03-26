@@ -1,16 +1,13 @@
 package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.impl;
 
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.mapper.Mapper;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.ClientOrderDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.IsStaff;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.SecurityContext;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.ClientOrderService;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.OrderHistoryService;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.validator.Validator;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.dao.ClientOrderDAO;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.*;
 import com.tuturugaNicolae.bestFurnitureDeals.exception.ForbiddenException;
 import com.tuturugaNicolae.bestFurnitureDeals.exception.NoClientOrderFoundException;
+import com.tuturugaNicolae.bestFurnitureDeals.exception.NoRightsToPerformThisOperationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -98,7 +95,20 @@ public class ClientOrderServiceImpl implements ClientOrderService {
     @Override
     @IsStaff
     public void approveClientOrder(ClientOrder clientOrder) {
+        if (!clientOrder.isFinished() || clientOrder.getOrderHistory().getOrderState() != OrderState.PLACED) {
+            throw new NoRightsToPerformThisOperationException("Can't approve this order!");
+        }
         clientOrder.setApproved(true);
         clientOrderDAO.update(clientOrder);
+    }
+
+    @Override
+    @IsStaff
+    public List<ClientOrder> getAllFinishedClientOrders() {
+        List<ClientOrder> clientOrders = clientOrderDAO.getAllFinishedOrders();
+        if (clientOrders.isEmpty()) {
+            throw new NoClientOrderFoundException();
+        }
+        return clientOrders;
     }
 }

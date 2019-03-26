@@ -78,6 +78,7 @@ public class DealServiceImpl implements DealService {
     @IsStaff
     public void updateDeal(Deal deal) {
         Deal oldDeal = getDealById(deal.getId());
+        oldDeal.setName(deal.getName());
         oldDeal.setAvailable(deal.isAvailable());
         oldDeal.setAvailableQuantity(deal.getAvailableQuantity());
         oldDeal.setPrice(deal.getPrice());
