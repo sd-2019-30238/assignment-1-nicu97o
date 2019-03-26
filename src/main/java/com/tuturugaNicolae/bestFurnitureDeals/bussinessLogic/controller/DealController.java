@@ -7,7 +7,7 @@ import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.DealService
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.validator.Validator;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.Deal;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.DealType;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.InvalidDealException;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.InvalidDealException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -57,6 +57,8 @@ public class DealController {
     }
 
     public void updateDeal(DealDTO dealDTO) {
+        Deal oldDeal = dealService.getDealById(dealDTO.getId());
+        dealDTO.setName(dealDTO.getName() == null || dealDTO.getName().trim().equals("") ? oldDeal.getName() : dealDTO.getName());
         if (!dealValidator.validate(dealDTO)) {
             throw new InvalidDealException();
         }

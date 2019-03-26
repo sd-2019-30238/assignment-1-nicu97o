@@ -13,7 +13,7 @@ import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.BoughtFurnit
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.ClientOrder;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.Deal;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.OrderHistory;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.UnavailableDealException;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.UnavailableDealException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -45,16 +45,24 @@ public class CartController {
         if (!dealDTO.isAvailable()) {
             throw new UnavailableDealException();
         }
+        if (dealDTO.getAvailableQuantity() < quantity) {
+            throw new UnavailableDealException("Not enough products on stock");
+        }
         ClientOrder clientOrder = clientOrderService.getCurrentClientOrderForAnUser(securityContext.getLoggedUser().get());
         Deal deal = dealService.getDealById(dealDTO.getId());
         BoughtFurniture boughtFurniture = DealComputerFactory.create(dealDTO.getDealTypeDTO()).computeFurnitureOrderDetails(clientOrder, deal, quantity);
         boughtFurnitureService.addNewFurnitureToCurrentClientOrder(boughtFurniture, clientOrder);
         clientOrderService.updateClientOrder(clientOrder, securityContext.getLoggedUser().get());
+        if (deal.getAvailableQuantity() == 0) {
+            deal.setAvailable(false);
+        }
+        dealService.updateDealQuantityAndAvailability(deal);
     }
 
     public void deleteProductFromCart(BoughtFurnitureDTO boughtFurnitureDTO) {
         ClientOrder clientOrder = clientOrderService.getCurrentClientOrderForAnUser(securityContext.getLoggedUser().get());
-        boughtFurnitureService.deleteBoughtFurniture(boughtFurnitureMapper.convertToEntity(boughtFurnitureDTO), clientOrder);
+        boughtFurnitureService.deleteBoughtFurniture(boughtFurnitureMapper.convertToEntity(boughtFurnitureDTO));
+        clientOrder.setTotalPrice(clientOrder.getTotalPrice().subtract(boughtFurnitureDTO.getPrice()));
         clientOrderService.updateClientOrder(clientOrder, securityContext.getLoggedUser().get());
     }
 

@@ -110,7 +110,7 @@ public class ProductMenuFrame extends JFrame {
         buildDealsList();
     }
 
-    private void buildFurnitureList() {
+    public void buildFurnitureList() {
         try {
             furnitureList.setListData(furnitureController.getAllFurniture().toArray());
         } catch (Exception e) {
@@ -118,7 +118,7 @@ public class ProductMenuFrame extends JFrame {
         }
     }
 
-    private void buildDealsList() {
+    public void buildDealsList() {
         try {
             dealsList.setListData(dealController.getAllDeals().toArray());
         } catch (Exception e) {
@@ -157,8 +157,6 @@ public class ProductMenuFrame extends JFrame {
                     messageField.setText(exp.getMessage());
                 }
                 buildFurnitureList();
-            } else if (e.getSource() == getAllDealsButton) {
-                buildDealsList();
             }
         }
     }
@@ -224,6 +222,8 @@ public class ProductMenuFrame extends JFrame {
                     messageDeals.setText(exp.getMessage());
                     dealsList.setListData(new ArrayList<DealDTO>().toArray());
                 }
+            } else if (e.getSource() == getAllDealsButton) {
+                buildDealsList();
             }
         }
     }
@@ -241,6 +241,7 @@ public class ProductMenuFrame extends JFrame {
                     exp.printStackTrace();
                     addToCartMessage.setText(exp.getMessage());
                 }
+                buildDealsList();
             }
         }
     }

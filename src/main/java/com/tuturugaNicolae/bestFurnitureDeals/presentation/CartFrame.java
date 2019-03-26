@@ -1,8 +1,8 @@
 package com.tuturugaNicolae.bestFurnitureDeals.presentation;
 
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller.CartController;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller.OrderController;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.BoughtFurnitureDTO;
-import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.BoughtFurniture;
 import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
@@ -17,6 +17,7 @@ public class CartFrame extends JFrame {
     private JButton checkoutButton;
     private JButton deleteProductButton;
     private JTextField messageField;
+    private JTextField currentOrder;
 
     /**
      * Other frames
@@ -28,11 +29,13 @@ public class CartFrame extends JFrame {
      */
     private ApplicationContext applicationContext;
     private CartController cartController;
+    private OrderController orderController;
 
     public CartFrame(ApplicationContext applicationContext, JFrame parentFrame) {
         this.parentFrame = parentFrame;
         this.applicationContext = applicationContext;
         cartController = applicationContext.getBean("cartController", CartController.class);
+        orderController = applicationContext.getBean("orderController", OrderController.class);
         setContentPane(panel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
@@ -51,6 +54,14 @@ public class CartFrame extends JFrame {
         }
     }
 
+    public void initializeCurrentOrderField() {
+        try {
+            currentOrder.setText(orderController.getCurrentClientOrder().toString());
+        } catch (Exception e) {
+            currentOrder.setText(e.getMessage());
+        }
+    }
+
     private class CartListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -65,6 +76,7 @@ public class CartFrame extends JFrame {
                 } catch (Exception exp) {
                     messageField.setText(exp.getMessage());
                 }
+                initializeCurrentOrderField();
             } else if (e.getSource() == deleteProductButton) {
                 try {
                     BoughtFurnitureDTO boughtFurnitureDTO = (BoughtFurnitureDTO) productsList.getSelectedValue();
@@ -74,6 +86,7 @@ public class CartFrame extends JFrame {
                 } catch (Exception exp) {
                     messageField.setText(exp.getMessage());
                 }
+                initializeCurrentOrderField();
             }
         }
     }

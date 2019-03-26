@@ -1,12 +1,10 @@
 package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.aspect;
 
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserDTO;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserTypeDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.SecurityContext;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.User;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.UserType;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.ForbiddenException;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.UnauthorizedException;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.ForbiddenException;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.UnauthorizedException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

@@ -5,6 +5,7 @@ import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.ClientOrd
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.FeedbackMessageDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.OrderHistoryDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.SecurityContext;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.BoughtFurnitureService;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.ClientOrderService;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.FeedbackMessageService;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.OrderHistoryService;
@@ -12,7 +13,7 @@ import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.validator.Validator
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.ClientOrder;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.FeedbackMessage;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.OrderHistory;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.CantPostFeedbackMessageException;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.CantPostFeedbackMessageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,9 +30,10 @@ public class OrderController {
     private Mapper<FeedbackMessage, FeedbackMessageDTO> feedbackMessageMapper;
     private Validator<FeedbackMessageDTO> feedbackMessageValidator;
     private FeedbackMessageService feedbackMessageService;
+    private BoughtFurnitureService boughtFurnitureService;
 
     @Autowired
-    public OrderController(SecurityContext securityContext, ClientOrderService clientOrderService, OrderHistoryService orderHistoryService, Mapper<ClientOrder, ClientOrderDTO> clientOrderMapper, Mapper<OrderHistory, OrderHistoryDTO> orderHistoryMapper, Mapper<FeedbackMessage, FeedbackMessageDTO> feedbackMessageMapper, Validator<FeedbackMessageDTO> feedbackMessageValidator, FeedbackMessageService feedbackMessageService) {
+    public OrderController(SecurityContext securityContext, ClientOrderService clientOrderService, OrderHistoryService orderHistoryService, Mapper<ClientOrder, ClientOrderDTO> clientOrderMapper, Mapper<OrderHistory, OrderHistoryDTO> orderHistoryMapper, Mapper<FeedbackMessage, FeedbackMessageDTO> feedbackMessageMapper, Validator<FeedbackMessageDTO> feedbackMessageValidator, FeedbackMessageService feedbackMessageService, BoughtFurnitureService boughtFurnitureService) {
         this.securityContext = securityContext;
         this.clientOrderService = clientOrderService;
         this.orderHistoryService = orderHistoryService;
@@ -40,6 +42,7 @@ public class OrderController {
         this.feedbackMessageMapper = feedbackMessageMapper;
         this.feedbackMessageValidator = feedbackMessageValidator;
         this.feedbackMessageService = feedbackMessageService;
+        this.boughtFurnitureService = boughtFurnitureService;
     }
 
     public List<ClientOrderDTO> getFinishedOrdersForLoggedUser() {
@@ -80,5 +83,9 @@ public class OrderController {
 
     public FeedbackMessageDTO getFeedbackMessageByClientOrder(ClientOrderDTO clientOrderDTO) {
         return feedbackMessageMapper.convertToDTO(feedbackMessageService.getFeedbackMessageByClientOrderId(clientOrderDTO.getId()));
+    }
+
+    public ClientOrderDTO getCurrentClientOrder() {
+        return clientOrderMapper.convertToDTO(clientOrderService.getCurrentClientOrderForAnUser(securityContext.getLoggedUser().get()));
     }
 }

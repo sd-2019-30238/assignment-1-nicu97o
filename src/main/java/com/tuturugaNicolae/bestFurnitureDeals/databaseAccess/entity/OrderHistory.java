@@ -19,7 +19,7 @@ public class OrderHistory {
     private Long id;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+    @Cascade({org.hibernate.annotations.CascadeType.ALL})
     @JoinColumn(name = "orderId")
     @EqualsAndHashCode.Exclude
     private ClientOrder clientOrder;

@@ -1,4 +1,4 @@
-package com.tuturugaNicolae.bestFurnitureDeals.exception;
+package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception;
 
 public class OrderNotPlacedException extends RuntimeException {
     public OrderNotPlacedException() {

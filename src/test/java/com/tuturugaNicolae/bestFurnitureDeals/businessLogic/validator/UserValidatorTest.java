@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 public class UserValidatorTest {
     private Validator userValidator;
-    private static final User VALID_USER = new User(null, "tuturuga", "123456", "tuturuganicu@gmail.com", UserType.CLIENT);
+    private static final UserDTO VALID_USER = new UserDTO(null, "tuturuga", "123456", "tuturuganicu@gmail.com", UserTypeDTO.CLIENT);
 
     @Before
     public void setUp() {
@@ -28,19 +28,19 @@ public class UserValidatorTest {
 
     @Test
     public void testValidateWhenUserHasInvalidUsername_shouldReturnFalse() {
-        User invalidUser = new User(null, null, VALID_USER.getPassword(), VALID_USER.getMail(), VALID_USER.getUserType());
+        UserDTO invalidUser = new UserDTO(null, null, VALID_USER.getPassword(), VALID_USER.getMail(), VALID_USER.getUserTypeDTO());
         assertFalse(userValidator.validate(invalidUser));
     }
 
     @Test
     public void testValidateWhenUserHasInvalidMail_shouldReturnFalse() {
-        User invalidUser = new User(null, VALID_USER.getUsername(), VALID_USER.getPassword(), "abc", VALID_USER.getUserType());
+        UserDTO invalidUser = new UserDTO(null, VALID_USER.getUsername(), VALID_USER.getPassword(), "abc", VALID_USER.getUserTypeDTO());
         assertFalse(userValidator.validate(invalidUser));
     }
 
     @Test
     public void testValidateWhenUserHasInvalidPassword_shouldReturnFalse() {
-        User invalidUser = new User(null, VALID_USER.getUsername(), "abc", VALID_USER.getMail(), VALID_USER.getUserType());
+        UserDTO invalidUser = new UserDTO(null, VALID_USER.getUsername(), "abc", VALID_USER.getMail(), VALID_USER.getUserTypeDTO());
         assertFalse(userValidator.validate(invalidUser));
     }
 }

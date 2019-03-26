@@ -6,8 +6,9 @@ import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.dao.FeedbackMessage
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.FeedbackMessage;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.OrderHistory;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.OrderState;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.CantPostFeedbackMessageException;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.NoFeedBackMessageFound;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.CantPostFeedbackMessageException;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.NoFeedBackMessageFound;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +27,8 @@ public class FeedbackMessageServiceImpl implements FeedbackMessageService {
 
     @Override
     public void addFeedbackMessageToAnOrder(FeedbackMessage feedbackMessage, OrderHistory orderHistory) {
-        if (orderHistory.getFeedbackMessage() != null) {
+        Optional<FeedbackMessage> oldFeedbackMessage = feedbackMessageDAO.getFeedbackMessageByClientOrderId(orderHistory.getClientOrder().getId());
+        if (oldFeedbackMessage.isPresent()) {
             throw new CantPostFeedbackMessageException("Feedback message already posted!");
         }
         if (orderHistory.getOrderState() != OrderState.COMPLETED) {

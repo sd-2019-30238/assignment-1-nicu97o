@@ -11,6 +11,7 @@ public class PayOneAndGetTwoDealComputerService implements DealComputerService {
     @Override
     public BoughtFurniture computeFurnitureOrderDetails(ClientOrder clientOrder, Deal deal, int quantity) {
         int numberOfReducedProducts = quantity / 2;
+        deal.setAvailableQuantity(deal.getAvailableQuantity() - quantity);
         BoughtFurniture boughtFurniture = new BoughtFurniture(0L, deal.getFurniture(), quantity, deal.getPrice().multiply(BigDecimal.valueOf(quantity - numberOfReducedProducts)), clientOrder);
         return boughtFurniture;
     }

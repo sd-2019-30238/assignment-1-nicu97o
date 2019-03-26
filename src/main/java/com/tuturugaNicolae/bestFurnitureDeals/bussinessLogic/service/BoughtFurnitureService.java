@@ -14,5 +14,5 @@ public interface BoughtFurnitureService {
 
     BoughtFurniture getBoughtFurnitureById(long id);
 
-    void deleteBoughtFurniture(BoughtFurniture boughtFurniture, ClientOrder clientOrder);
+    void deleteBoughtFurniture(BoughtFurniture boughtFurniture);
 }

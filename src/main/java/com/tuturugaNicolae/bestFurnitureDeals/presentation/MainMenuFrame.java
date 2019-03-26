@@ -26,7 +26,7 @@ public class MainMenuFrame extends JFrame {
      * Parent frame components
      */
     private JFrame parentFrame;
-    private JFrame productsFrame;
+    private ProductMenuFrame productsFrame;
     private AccountFrame accountFrame;
     private CartFrame cartFrame;
     private MyOrdersFrame myOrdersFrame;
@@ -70,6 +70,8 @@ public class MainMenuFrame extends JFrame {
                 setVisible(false);
                 securityContext.logout();
             } else if (e.getSource() == productsMenuButton) {
+                productsFrame.buildDealsList();
+                productsFrame.buildFurnitureList();
                 productsFrame.setVisible(true);
                 setVisible(false);
             } else if (e.getSource() == ordersToApproveButton) {
@@ -81,6 +83,7 @@ public class MainMenuFrame extends JFrame {
                 setVisible(false);
             } else if (e.getSource() == cartButton) {
                 cartFrame.initializeList();
+                cartFrame.initializeCurrentOrderField();
                 cartFrame.setVisible(true);
                 setVisible(false);
             } else if (e.getSource() == myOrdersButton) {

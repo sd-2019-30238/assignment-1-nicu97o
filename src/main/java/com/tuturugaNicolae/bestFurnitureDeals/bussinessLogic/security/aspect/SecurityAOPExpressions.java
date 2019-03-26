@@ -4,8 +4,8 @@ import org.aspectj.lang.annotation.Pointcut;
 
 public class SecurityAOPExpressions {
     @Pointcut("execution(* com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service..*.*(..))" +
-            " && !execution(* com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.UserService.addUser(..))" +
-            "&& !execution(* com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service..getAll*(..))")
+            " && !execution(* com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.UserService.addUser(..))")
+//            "&& !execution(* com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service..getAll*(..))")
     public void servicePackageAndSubpackagePointcut() {
     }
 

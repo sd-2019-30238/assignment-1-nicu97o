@@ -5,7 +5,7 @@ import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.Furniture
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.FurnitureService;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.validator.Validator;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.Furniture;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.InvalidFurnitureException;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.InvalidFurnitureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +34,11 @@ public class FurnitureController {
     }
 
     public void updateFurniture(FurnitureDTO furnitureDTO) {
+        Furniture oldFurniture = furnitureService.getFurnitureById(furnitureDTO.getId());
+        String name = furnitureDTO.getName();
+        String description = furnitureDTO.getDescription();
+        furnitureDTO.setName(name == null || name.trim().equals("") ? oldFurniture.getName() : name);
+        furnitureDTO.setDescription(description == null || description.trim().equals("") ? oldFurniture.getDescription() : description);
         if (!furnitureValidator.validate(furnitureDTO)) {
             throw new InvalidFurnitureException();
         }

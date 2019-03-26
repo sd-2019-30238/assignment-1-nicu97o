@@ -5,7 +5,7 @@ import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.DealService
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.dao.DealDAO;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.Deal;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.DealType;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.NoDealFoundException;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.NoDealFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -90,5 +90,13 @@ public class DealServiceImpl implements DealService {
     @IsStaff
     public void deleteDeal(Deal deal) {
         dealDAO.delete(getDealById(deal.getId()));
+    }
+
+    @Override
+    public void updateDealQuantityAndAvailability(Deal deal) {
+        Deal oldDeal = getDealById(deal.getId());
+        oldDeal.setAvailable(deal.isAvailable());
+        oldDeal.setAvailableQuantity(deal.getAvailableQuantity());
+        dealDAO.update(oldDeal);
     }
 }

@@ -1,17 +1,13 @@
 package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.impl;
 
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.mapper.Mapper;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.ClientOrderDTO;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.OrderHistoryDTO;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.OrderStateDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.IsStaff;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.OrderHistoryService;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.dao.OrderHistoryDAO;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.ClientOrder;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.OrderHistory;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.OrderState;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.NoOrderHistoryFoundException;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.OrderNotPlacedException;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.NoOrderHistoryFoundException;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.OrderNotPlacedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

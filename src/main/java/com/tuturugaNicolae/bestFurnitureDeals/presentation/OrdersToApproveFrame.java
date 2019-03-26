@@ -63,6 +63,7 @@ public class OrdersToApproveFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == backButton) {
+                ordersList.setListData(new ArrayList<ClientOrderDTO>().toArray());
                 parentFrame.setVisible(true);
                 setVisible(false);
             } else if (e.getSource() == getAllOrdersButton) {

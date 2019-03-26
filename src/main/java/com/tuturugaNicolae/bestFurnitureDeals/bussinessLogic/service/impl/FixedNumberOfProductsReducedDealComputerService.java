@@ -12,6 +12,7 @@ public class FixedNumberOfProductsReducedDealComputerService implements DealComp
 
     @Override
     public BoughtFurniture computeFurnitureOrderDetails(ClientOrder clientOrder, Deal deal, int quantity) {
+        deal.setAvailableQuantity(deal.getAvailableQuantity() - quantity);
         if (quantity >= NUMBER_OF_REDUCED_PRODUCTS) {
             BigDecimal reducedPrice = deal.getPrice().multiply(BigDecimal.valueOf(3)).divide(BigDecimal.valueOf(0.75));
             return new BoughtFurniture(0L, deal.getFurniture(), quantity, reducedPrice.add(deal.getPrice().multiply(BigDecimal.valueOf(quantity - NUMBER_OF_REDUCED_PRODUCTS))),

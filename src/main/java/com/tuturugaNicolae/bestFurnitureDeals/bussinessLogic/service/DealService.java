@@ -22,4 +22,6 @@ public interface DealService {
     void updateDeal(Deal deal);
 
     void deleteDeal(Deal deal);
+
+    void updateDealQuantityAndAvailability(Deal deal);
 }

@@ -15,5 +15,6 @@ public class ClientOrderDTO {
     private PaymentMethodDTO paymentMethodDTO;
     private BigDecimal totalPrice;
     private boolean finished;
+    @ToString.Exclude
     private UserDTO client;
 }

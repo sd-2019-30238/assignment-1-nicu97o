@@ -4,7 +4,7 @@ import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.IsStaff;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.FurnitureService;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.dao.FurnitureDAO;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.Furniture;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.NoFurnitureFoundException;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.NoFurnitureFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -4,7 +4,7 @@ import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.BoughtFurni
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.dao.BoughtFurnitureDAO;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.BoughtFurniture;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.ClientOrder;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.NoBoughtFurnitureFoundException;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.NoBoughtFurnitureFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,8 +54,7 @@ public class BoughtFurnitureServiceImpl implements BoughtFurnitureService {
     }
 
     @Override
-    public void deleteBoughtFurniture(BoughtFurniture boughtFurniture, ClientOrder clientOrder) {
+    public void deleteBoughtFurniture(BoughtFurniture boughtFurniture) {
         boughtFurnitureDAO.delete(getBoughtFurnitureById(boughtFurniture.getId()));
-        clientOrder.setTotalPrice(clientOrder.getTotalPrice().subtract(boughtFurniture.getPrice()));
     }
 }

@@ -1,13 +1,11 @@
 package com.tuturugaNicolae.bestFurnitureDeals.businessLogic.service;
 
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.configuration.BusinessLogicConfiguration;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserDTO;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserTypeDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.SecurityContext;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.UserService;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.User;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.NoRightsToPerformThisOperationException;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.NoUserFoundException;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.NoRightsToPerformThisOperationException;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.NoUserFoundException;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.UserType;
 import org.junit.Before;
 import org.junit.Test;

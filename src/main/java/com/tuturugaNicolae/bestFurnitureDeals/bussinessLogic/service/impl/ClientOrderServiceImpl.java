@@ -5,9 +5,9 @@ import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.ClientOrder
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.OrderHistoryService;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.dao.ClientOrderDAO;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.*;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.ForbiddenException;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.NoClientOrderFoundException;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.NoRightsToPerformThisOperationException;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.ForbiddenException;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.NoClientOrderFoundException;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.NoRightsToPerformThisOperationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

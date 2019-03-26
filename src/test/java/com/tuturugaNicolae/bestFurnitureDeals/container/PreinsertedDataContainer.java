@@ -33,7 +33,7 @@ public abstract class PreinsertedDataContainer {
     public static final int NUMBER_OF_PREINSERTED_ORDER_HISTORY = 1;
 
     public static final FeedbackMessage PREINSERTED_FEEDBACK_MESSAGE_1 = new FeedbackMessage(1L, "Feedback", "Good product", PREINSERTED_ORDER_HISTORY_1);
-    public static final FeedbackMessageDTO PREINSERTED_FEEDBACK_MESSAGEDTO_1 = new FeedbackMessageDTO(1L, "Feedkback", "Good product", PREINSERTED_ORDER_HISTORYDTO_1);
+    public static final FeedbackMessageDTO PREINSERTED_FEEDBACK_MESSAGEDTO_1 = new FeedbackMessageDTO(1L, "Feedback", "Good product", PREINSERTED_ORDER_HISTORYDTO_1);
     public static final int NUMBER_OF_PREINSERTED_FEEDBACK_MESSAGES = 1;
 
     public static final BoughtFurniture PREINSERTED_BOUGHT_FURNITURE_1 = new BoughtFurniture(1L, 1, BigDecimal.TEN);

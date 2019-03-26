@@ -6,7 +6,7 @@ import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.SecurityCo
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.UserService;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.validator.Validator;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.User;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.InvalidUserException;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.InvalidUserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -41,6 +41,8 @@ public class UserController {
     }
 
     public void updateUser(UserDTO userDTO, String usernameOfLoggedUser) {
+        userDTO.setPassword(userDTO.getPassword() == null || userDTO.getPassword().trim().equals("") ? securityContext.getLoggedUser().get().getPassword() : userDTO.getPassword());
+        userDTO.setMail(userDTO.getMail() == null || userDTO.getMail().trim().equals("") ? securityContext.getLoggedUser().get().getMail() : userDTO.getMail());
         if (!userValidator.validate(userDTO)) {
             throw new InvalidUserException();
         }

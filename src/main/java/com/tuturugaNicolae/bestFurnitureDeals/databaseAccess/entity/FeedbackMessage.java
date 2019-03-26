@@ -24,7 +24,7 @@ public class FeedbackMessage {
     private String messageBody;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @JoinColumn(name = "orderHistoryId")
     @EqualsAndHashCode.Exclude
     private OrderHistory orderHistory;
