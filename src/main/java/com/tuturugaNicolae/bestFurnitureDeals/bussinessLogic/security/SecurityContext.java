@@ -1,35 +1,27 @@
 package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security;
 
-import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.dao.UserDAO;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.BadCredentialsException;
-import com.tuturugaNicolae.bestFurnitureDeals.exception.NoUserFoundException;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.User;
+import com.tuturugaNicolae.bestFurnitureDeals.exception.BadCredentialsException;
+import com.tuturugaNicolae.bestFurnitureDeals.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Component
 public class SecurityContext {
     private ThreadLocal<User> loggedUser = new ThreadLocal<>();
-    private UserDAO userDAO;
+    private UserService userService;
 
     @Autowired
-    public SecurityContext(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    public SecurityContext(UserService userService) {
+        this.userService = userService;
     }
 
-    @Transactional
     public void authenticate(String username, String password) {
-        Optional<User> user = userDAO.findByUsername(username);
-        if (!user.isPresent()) {
-            throw new NoUserFoundException();
-        }
-        if (!user.get().getPassword().equals(password)) {
+        User user = userService.getUserByUsername(username);
+        if (!user.getPassword().equals(password)) {
             throw new BadCredentialsException();
         }
-        loggedUser.set(user.get());
+        loggedUser.set(user);
     }
 
     public void logout() {
