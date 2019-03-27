@@ -1,9 +1,6 @@
 package com.tuturugaNicolae.bestFurnitureDeals.presentation;
 
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.configuration.BusinessLogicConfiguration;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.UserService;
-import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.User;
-import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.UserType;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

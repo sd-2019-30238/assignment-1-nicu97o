@@ -1,8 +1,8 @@
 package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security;
 
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.dao.UserDAO;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.BadCredentialsException;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.NoUserFoundException;
+import com.tuturugaNicolae.bestFurnitureDeals.exception.BadCredentialsException;
+import com.tuturugaNicolae.bestFurnitureDeals.exception.NoUserFoundException;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

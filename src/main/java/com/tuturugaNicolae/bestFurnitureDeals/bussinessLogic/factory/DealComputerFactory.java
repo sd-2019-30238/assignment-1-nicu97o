@@ -1,11 +1,11 @@
 package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.factory;
 
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.DealTypeDTO;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.DealComputerService;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.impl.AllProductsReductionDealComputerService;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.impl.FixedNumberOfProductsReducedDealComputerService;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.impl.NormalDealComputerService;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.impl.PayOneAndGetTwoDealComputerService;
+import com.tuturugaNicolae.bestFurnitureDeals.service.DealComputerService;
+import com.tuturugaNicolae.bestFurnitureDeals.service.impl.AllProductsReductionDealComputerService;
+import com.tuturugaNicolae.bestFurnitureDeals.service.impl.FixedNumberOfProductsReducedDealComputerService;
+import com.tuturugaNicolae.bestFurnitureDeals.service.impl.NormalDealComputerService;
+import com.tuturugaNicolae.bestFurnitureDeals.service.impl.PayOneAndGetTwoDealComputerService;
 
 public class DealComputerFactory {
     public static DealComputerService create(DealTypeDTO dealTypeDTO) {

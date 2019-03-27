@@ -2,10 +2,10 @@ package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller;
 
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.mapper.Mapper;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.FurnitureDTO;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.FurnitureService;
+import com.tuturugaNicolae.bestFurnitureDeals.service.FurnitureService;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.validator.Validator;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.Furniture;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.InvalidFurnitureException;
+import com.tuturugaNicolae.bestFurnitureDeals.exception.InvalidFurnitureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,10 +23,6 @@ public class FurnitureController {
         this.furnitureValidator = furnitureValidator;
         this.furnitureService = furnitureService;
         this.mapper = mapper;
-    }
-
-    public FurnitureDTO getFurnitureById(long id) {
-        return mapper.convertToDTO(furnitureService.getFurnitureById(id));
     }
 
     public List<FurnitureDTO> getAllFurniture() {

@@ -3,11 +3,11 @@ package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.mapper.Mapper;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.DealDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.DealTypeDTO;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.DealService;
+import com.tuturugaNicolae.bestFurnitureDeals.service.DealService;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.validator.Validator;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.Deal;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.DealType;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.InvalidDealException;
+import com.tuturugaNicolae.bestFurnitureDeals.exception.InvalidDealException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,10 +42,6 @@ public class DealController {
 
     public List<DealDTO> getAllDeals() {
         return dealService.getAllDeals().stream().map(mapper::convertToDTO).collect(Collectors.toList());
-    }
-
-    public DealDTO getDealById(long id) {
-        return mapper.convertToDTO(dealService.getDealById(id));
     }
 
     public void addDeal(DealDTO dealDTO) {

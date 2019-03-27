@@ -5,15 +5,15 @@ import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.BoughtFur
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.DealDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.factory.DealComputerFactory;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.SecurityContext;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.BoughtFurnitureService;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.ClientOrderService;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.DealService;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.OrderHistoryService;
+import com.tuturugaNicolae.bestFurnitureDeals.service.BoughtFurnitureService;
+import com.tuturugaNicolae.bestFurnitureDeals.service.ClientOrderService;
+import com.tuturugaNicolae.bestFurnitureDeals.service.DealService;
+import com.tuturugaNicolae.bestFurnitureDeals.service.OrderHistoryService;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.BoughtFurniture;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.ClientOrder;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.Deal;
 import com.tuturugaNicolae.bestFurnitureDeals.databaseAccess.entity.OrderHistory;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.exception.UnavailableDealException;
+import com.tuturugaNicolae.bestFurnitureDeals.exception.UnavailableDealException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class CartController {
-    private Mapper<Deal, DealDTO> dealMapper;
     private SecurityContext securityContext;
     private OrderHistoryService orderHistoryService;
     private ClientOrderService clientOrderService;
@@ -31,8 +30,7 @@ public class CartController {
     private Mapper<BoughtFurniture, BoughtFurnitureDTO> boughtFurnitureMapper;
 
     @Autowired
-    public CartController(Mapper<Deal, DealDTO> dealMapper, SecurityContext securityContext, OrderHistoryService orderHistoryService, ClientOrderService clientOrderService, DealService dealService, BoughtFurnitureService boughtFurnitureService, Mapper<BoughtFurniture, BoughtFurnitureDTO> boughtFurnitureMapper) {
-        this.dealMapper = dealMapper;
+    public CartController(SecurityContext securityContext, OrderHistoryService orderHistoryService, ClientOrderService clientOrderService, DealService dealService, BoughtFurnitureService boughtFurnitureService, Mapper<BoughtFurniture, BoughtFurnitureDTO> boughtFurnitureMapper) {
         this.securityContext = securityContext;
         this.orderHistoryService = orderHistoryService;
         this.clientOrderService = clientOrderService;

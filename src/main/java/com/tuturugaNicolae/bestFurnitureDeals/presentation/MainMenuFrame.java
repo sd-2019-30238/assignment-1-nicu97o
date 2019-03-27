@@ -1,9 +1,6 @@
 package com.tuturugaNicolae.bestFurnitureDeals.presentation;
 
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller.UserController;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.SecurityContext;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.ClientOrderService;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.service.UserService;
 import org.springframework.context.ApplicationContext;
 
 import javax.swing.*;
