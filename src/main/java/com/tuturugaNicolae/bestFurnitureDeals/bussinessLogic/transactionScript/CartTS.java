@@ -1,4 +1,4 @@
-package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller;
+package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.transactionScript;
 
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.mapper.Mapper;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.BoughtFurnitureDTO;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class CartController {
+public class CartTS {
     private SecurityContext securityContext;
     private OrderHistoryService orderHistoryService;
     private ClientOrderService clientOrderService;
@@ -30,7 +30,7 @@ public class CartController {
     private Mapper<BoughtFurniture, BoughtFurnitureDTO> boughtFurnitureMapper;
 
     @Autowired
-    public CartController(SecurityContext securityContext, OrderHistoryService orderHistoryService, ClientOrderService clientOrderService, DealService dealService, BoughtFurnitureService boughtFurnitureService, Mapper<BoughtFurniture, BoughtFurnitureDTO> boughtFurnitureMapper) {
+    public CartTS(SecurityContext securityContext, OrderHistoryService orderHistoryService, ClientOrderService clientOrderService, DealService dealService, BoughtFurnitureService boughtFurnitureService, Mapper<BoughtFurniture, BoughtFurnitureDTO> boughtFurnitureMapper) {
         this.securityContext = securityContext;
         this.orderHistoryService = orderHistoryService;
         this.clientOrderService = clientOrderService;

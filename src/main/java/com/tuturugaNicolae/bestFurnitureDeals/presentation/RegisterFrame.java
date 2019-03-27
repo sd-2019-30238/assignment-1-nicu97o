@@ -1,6 +1,6 @@
 package com.tuturugaNicolae.bestFurnitureDeals.presentation;
 
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller.UserController;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.transactionScript.UserTS;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserTypeDTO;
 import org.springframework.context.ApplicationContext;
@@ -32,11 +32,11 @@ public class RegisterFrame extends JFrame {
     /**
      * Current frame variables
      */
-    private UserController userController;
+    private UserTS userTS;
 
     public RegisterFrame(ApplicationContext applicationContext, JFrame parentFrame) {
         this.parentFrame = parentFrame;
-        userController = applicationContext.getBean("userController", UserController.class);
+        userTS = applicationContext.getBean("userTS", UserTS.class);
         setContentPane(panel);
         buttonGroup = new ButtonGroup();
         staffRadioButton.setActionCommand(UserTypeDTO.STAFF.toString());
@@ -57,7 +57,7 @@ public class RegisterFrame extends JFrame {
             if (e.getSource() == submitButton) {
                 UserDTO userDTO = new UserDTO(null, usernameField.getText(), passwordField.getText(), mailField.getText(), UserTypeDTO.valueOf(buttonGroup.getSelection().getActionCommand()));
                 try {
-                    userController.addUser(userDTO, passwordField.getText());
+                    userTS.addUser(userDTO, passwordField.getText());
                     resultMessage.setText("Success");
                 } catch (Exception exp) {
                     resultMessage.setText(exp.getMessage());

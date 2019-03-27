@@ -1,7 +1,7 @@
 package com.tuturugaNicolae.bestFurnitureDeals.presentation;
 
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller.CartController;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller.OrderController;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.transactionScript.CartTS;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.transactionScript.OrderTS;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.BoughtFurnitureDTO;
 import org.springframework.context.ApplicationContext;
 
@@ -24,18 +24,13 @@ public class CartFrame extends JFrame {
      */
     private JFrame parentFrame;
 
-    /**
-     * Current frame variables
-     */
-    private ApplicationContext applicationContext;
-    private CartController cartController;
-    private OrderController orderController;
+    private CartTS cartTS;
+    private OrderTS orderTS;
 
     public CartFrame(ApplicationContext applicationContext, JFrame parentFrame) {
         this.parentFrame = parentFrame;
-        this.applicationContext = applicationContext;
-        cartController = applicationContext.getBean("cartController", CartController.class);
-        orderController = applicationContext.getBean("orderController", OrderController.class);
+        this.cartTS = applicationContext.getBean("cartTS", CartTS.class);
+        this.orderTS = applicationContext.getBean("orderTS", OrderTS.class);
         setContentPane(panel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
@@ -48,7 +43,7 @@ public class CartFrame extends JFrame {
 
     public void initializeList() {
         try {
-            productsList.setListData(cartController.getAllProductsFromCart().toArray());
+            productsList.setListData(cartTS.getAllProductsFromCart().toArray());
         } catch (Exception e) {
             productsList.setListData(new ArrayList<BoughtFurnitureDTO>().toArray());
         }
@@ -56,7 +51,7 @@ public class CartFrame extends JFrame {
 
     public void initializeCurrentOrderField() {
         try {
-            currentOrder.setText(orderController.getCurrentClientOrder().toString());
+            currentOrder.setText(orderTS.getCurrentClientOrder().toString());
         } catch (Exception e) {
             currentOrder.setText(e.getMessage());
         }
@@ -70,7 +65,7 @@ public class CartFrame extends JFrame {
                 setVisible(false);
             } else if (e.getSource() == checkoutButton) {
                 try {
-                    cartController.checkout();
+                    cartTS.checkout();
                     messageField.setText("Successful");
                     initializeList();
                 } catch (Exception exp) {
@@ -80,7 +75,7 @@ public class CartFrame extends JFrame {
             } else if (e.getSource() == deleteProductButton) {
                 try {
                     BoughtFurnitureDTO boughtFurnitureDTO = (BoughtFurnitureDTO) productsList.getSelectedValue();
-                    cartController.deleteProductFromCart(boughtFurnitureDTO);
+                    cartTS.deleteProductFromCart(boughtFurnitureDTO);
                     messageField.setText("Deleted");
                     initializeList();
                 } catch (Exception exp) {

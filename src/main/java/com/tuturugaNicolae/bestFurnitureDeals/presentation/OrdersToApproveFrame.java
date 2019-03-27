@@ -1,6 +1,6 @@
 package com.tuturugaNicolae.bestFurnitureDeals.presentation;
 
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller.OrderController;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.transactionScript.OrderTS;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.ClientOrderDTO;
 import org.springframework.context.ApplicationContext;
 
@@ -26,16 +26,11 @@ public class OrdersToApproveFrame extends JFrame {
      */
     private JFrame parentFrame;
 
-    /**
-     * Current frame variables
-     */
-    private ApplicationContext applicationContext;
-    private OrderController orderController;
+    private OrderTS orderTS;
 
     public OrdersToApproveFrame(ApplicationContext applicationContext, JFrame parentFrame) {
         this.parentFrame = parentFrame;
-        this.applicationContext = applicationContext;
-        this.orderController = applicationContext.getBean("orderController", OrderController.class);
+        this.orderTS = applicationContext.getBean("orderTS", OrderTS.class);
         setContentPane(panel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
@@ -52,7 +47,7 @@ public class OrdersToApproveFrame extends JFrame {
 
     public void initializeOrderList() {
         try {
-            ordersList.setListData(orderController.getAllOrders().toArray());
+            ordersList.setListData(orderTS.getAllOrders().toArray());
         } catch (Exception exp) {
             ordersList.setListData(new ArrayList<ClientOrderDTO>().toArray());
             messageArea.setText(exp.getMessage());
@@ -70,7 +65,7 @@ public class OrdersToApproveFrame extends JFrame {
                 initializeOrderList();
             } else if (e.getSource() == getUnfinishedOrdersButton) {
                 try {
-                    ordersList.setListData(orderController.getAllFinishedOrders().toArray());
+                    ordersList.setListData(orderTS.getAllFinishedOrders().toArray());
                 } catch (Exception exp) {
                     ordersList.setListData(new ArrayList<ClientOrderDTO>().toArray());
                     messageArea.setText(exp.getMessage());
@@ -78,7 +73,7 @@ public class OrdersToApproveFrame extends JFrame {
             } else if (e.getSource() == getOrderHistoryButton) {
                 try {
                     ClientOrderDTO clientOrderDTO = (ClientOrderDTO) ordersList.getSelectedValue();
-                    messageArea.setText(orderController.getOrderHistoryForAClientOrder(clientOrderDTO).toString());
+                    messageArea.setText(orderTS.getOrderHistoryForAClientOrder(clientOrderDTO).toString());
                 } catch (Exception exp) {
                     messageArea.setText(exp.getMessage());
                     exp.printStackTrace();
@@ -86,7 +81,7 @@ public class OrdersToApproveFrame extends JFrame {
             } else if (e.getSource() == approveOrderButton) {
                 try {
                     ClientOrderDTO clientOrderDTO = (ClientOrderDTO) ordersList.getSelectedValue();
-                    orderController.approveClientOrder(clientOrderDTO);
+                    orderTS.approveClientOrder(clientOrderDTO);
                     messageArea.setText("Successful");
                 } catch (Exception exp) {
                     messageArea.setText(exp.getMessage());
@@ -96,7 +91,7 @@ public class OrdersToApproveFrame extends JFrame {
             } else if (e.getSource() == updateOrderStateButton) {
                 try {
                     ClientOrderDTO clientOrderDTO = (ClientOrderDTO) ordersList.getSelectedValue();
-                    orderController.updateOrderState(clientOrderDTO);
+                    orderTS.updateOrderState(clientOrderDTO);
                 } catch (Exception exp) {
                     messageArea.setText(exp.getMessage());
                     exp.printStackTrace();
@@ -104,7 +99,7 @@ public class OrdersToApproveFrame extends JFrame {
             } else if (e.getSource() == getOrdersFeedbackButton) {
                 try {
                     ClientOrderDTO clientOrderDTO = (ClientOrderDTO) ordersList.getSelectedValue();
-                    messageArea.setText(orderController.getFeedbackMessageByClientOrder(clientOrderDTO).toString());
+                    messageArea.setText(orderTS.getFeedbackMessageByClientOrder(clientOrderDTO).toString());
                 } catch (Exception exp) {
                     messageArea.setText(exp.getMessage());
                 }

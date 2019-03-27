@@ -1,4 +1,4 @@
-package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller;
+package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.transactionScript;
 
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.mapper.Mapper;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.FurnitureDTO;
@@ -13,13 +13,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class FurnitureController {
+public class FurnitureTS {
     private Validator<FurnitureDTO> furnitureValidator;
     private FurnitureService furnitureService;
     private Mapper<Furniture, FurnitureDTO> mapper;
 
     @Autowired
-    public FurnitureController(Validator<FurnitureDTO> furnitureValidator, FurnitureService furnitureService, Mapper<Furniture, FurnitureDTO> mapper) {
+    public FurnitureTS(Validator<FurnitureDTO> furnitureValidator, FurnitureService furnitureService, Mapper<Furniture, FurnitureDTO> mapper) {
         this.furnitureValidator = furnitureValidator;
         this.furnitureService = furnitureService;
         this.mapper = mapper;

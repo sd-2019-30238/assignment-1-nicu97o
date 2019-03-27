@@ -1,13 +1,12 @@
 package com.tuturugaNicolae.bestFurnitureDeals.presentation;
 
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller.CartController;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller.DealController;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller.FurnitureController;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller.UserController;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.transactionScript.CartTS;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.transactionScript.DealTS;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.transactionScript.FurnitureTS;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.transactionScript.UserTS;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.DealDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.DealTypeDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.FurnitureDTO;
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserTypeDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.SecurityContext;
 import org.springframework.context.ApplicationContext;
 
@@ -53,30 +52,24 @@ public class ProductMenuFrame extends JFrame {
     private ButtonGroup buttonGroup;
 
     /**
-     * Other frames
-     */
-    private JFrame parentFrame;
-
-    /**
      * Current frame varibales
      */
-    private FurnitureController furnitureController;
-    private DealController dealController;
-    private CartController cartController;
+    private FurnitureTS furnitureTS;
+    private DealTS dealTS;
+    private CartTS cartTS;
     private SecurityContext securityContext;
-    private UserController userController;
+    private UserTS userTS;
 
     public ProductMenuFrame(ApplicationContext applicationContext, JFrame parentFrame) {
         initializeCurrentFrame(applicationContext, parentFrame);
     }
 
     private void initializeCurrentFrame(ApplicationContext applicationContext, JFrame parentFrame) {
-        this.furnitureController = applicationContext.getBean("furnitureController", FurnitureController.class);
-        this.dealController = applicationContext.getBean("dealController", DealController.class);
-        this.cartController = applicationContext.getBean("cartController", CartController.class);
+        this.furnitureTS = applicationContext.getBean("furnitureTS", FurnitureTS.class);
+        this.dealTS = applicationContext.getBean("dealTS", DealTS.class);
+        this.cartTS = applicationContext.getBean("cartTS", CartTS.class);
         this.securityContext = applicationContext.getBean("securityContext", SecurityContext.class);
-        this.userController = applicationContext.getBean("userController", UserController.class);
-        this.parentFrame = parentFrame;
+        this.userTS = applicationContext.getBean("userTS", UserTS.class);
         setContentPane(panel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         insertButton.addActionListener(new FurnitureMenuListener());
@@ -112,7 +105,7 @@ public class ProductMenuFrame extends JFrame {
 
     public void buildFurnitureList() {
         try {
-            furnitureList.setListData(furnitureController.getAllFurniture().toArray());
+            furnitureList.setListData(furnitureTS.getAllFurniture().toArray());
         } catch (Exception e) {
             furnitureList.setListData(new ArrayList<FurnitureDTO>().toArray());
         }
@@ -120,7 +113,7 @@ public class ProductMenuFrame extends JFrame {
 
     public void buildDealsList() {
         try {
-            dealsList.setListData(dealController.getAllDeals().toArray());
+            dealsList.setListData(dealTS.getAllDeals().toArray());
         } catch (Exception e) {
             dealsList.setListData(new ArrayList<DealDTO>().toArray());
         }
@@ -132,7 +125,7 @@ public class ProductMenuFrame extends JFrame {
             if (e.getSource() == insertButton) {
                 try {
                     FurnitureDTO furnitureDTO = new FurnitureDTO(0L, nameField.getText(), descriptionField.getText());
-                    furnitureController.addFurniture(furnitureDTO);
+                    furnitureTS.addFurniture(furnitureDTO);
                     messageField.setText("Inserted");
                 } catch (Exception exp) {
                     messageField.setText(exp.getMessage());
@@ -142,7 +135,7 @@ public class ProductMenuFrame extends JFrame {
                 try {
                     FurnitureDTO oldFurnitureDTO = (FurnitureDTO) furnitureList.getSelectedValue();
                     FurnitureDTO furnitureDTO = new FurnitureDTO(oldFurnitureDTO.getId(), nameField.getText(), descriptionField.getText());
-                    furnitureController.updateFurniture(furnitureDTO);
+                    furnitureTS.updateFurniture(furnitureDTO);
                     messageField.setText("Updated");
                 } catch (Exception exp) {
                     messageField.setText(exp.getMessage());
@@ -151,7 +144,7 @@ public class ProductMenuFrame extends JFrame {
             } else if (e.getSource() == deleteButton) {
                 try {
                     FurnitureDTO oldFurnitureDTO = (FurnitureDTO) furnitureList.getSelectedValue();
-                    furnitureController.deleteFurniture(oldFurnitureDTO);
+                    furnitureTS.deleteFurniture(oldFurnitureDTO);
                     messageField.setText("Deleted");
                 } catch (Exception exp) {
                     messageField.setText(exp.getMessage());
@@ -169,7 +162,7 @@ public class ProductMenuFrame extends JFrame {
                     DealDTO dealDTO = new DealDTO(0L, dealNameField.getText(), DealTypeDTO.valueOf(buttonGroup.getSelection().getActionCommand().toString()),
                             (FurnitureDTO) furnitureList.getSelectedValue(), BigDecimal.valueOf(Double.parseDouble(dealPriceField.getText())),
                             availableCheckBox.isSelected(), Integer.parseInt(dealQuantityField.getText()));
-                    dealController.addDeal(dealDTO);
+                    dealTS.addDeal(dealDTO);
                     messageDeals.setText("Added");
                 } catch (Exception exp) {
                     messageDeals.setText(exp.getMessage());
@@ -183,7 +176,7 @@ public class ProductMenuFrame extends JFrame {
                     oldDeal.setAvailableQuantity(Integer.parseInt(dealQuantityField.getText()));
                     oldDeal.setPrice(BigDecimal.valueOf(Double.parseDouble(dealPriceField.getText())));
                     oldDeal.setDealTypeDTO(DealTypeDTO.valueOf(buttonGroup.getSelection().getActionCommand()));
-                    dealController.updateDeal(oldDeal);
+                    dealTS.updateDeal(oldDeal);
                     messageField.setText("Updated");
                 } catch (Exception exp) {
                     messageDeals.setText(exp.getMessage());
@@ -192,7 +185,7 @@ public class ProductMenuFrame extends JFrame {
             } else if (e.getSource() == deleteButton1) {
                 try {
                     DealDTO oldDeal = (DealDTO) dealsList.getSelectedValue();
-                    dealController.deleteDeal(oldDeal);
+                    dealTS.deleteDeal(oldDeal);
                     messageField.setText("Deleted");
                 } catch (Exception exp) {
                     messageDeals.setText(exp.getMessage());
@@ -200,7 +193,7 @@ public class ProductMenuFrame extends JFrame {
                 buildDealsList();
             } else if (e.getSource() == filtterByNameButton) {
                 try {
-                    dealsList.setListData(dealController.getDealsByName(nameToSearchFor.getText()).toArray());
+                    dealsList.setListData(dealTS.getDealsByName(nameToSearchFor.getText()).toArray());
                     messageField.setText("Successful!");
                 } catch (Exception exp) {
                     messageDeals.setText(exp.getMessage());
@@ -208,7 +201,7 @@ public class ProductMenuFrame extends JFrame {
                 }
             } else if (e.getSource() == filtterByPriceButton) {
                 try {
-                    dealsList.setListData(dealController.getDealsByPrice(BigDecimal.valueOf(Double.parseDouble(minPrice.getText())), BigDecimal.valueOf(Double.parseDouble(maxPrice.getText()))).toArray());
+                    dealsList.setListData(dealTS.getDealsByPrice(BigDecimal.valueOf(Double.parseDouble(minPrice.getText())), BigDecimal.valueOf(Double.parseDouble(maxPrice.getText()))).toArray());
                     messageField.setText("successfull");
                 } catch (Exception exp) {
                     messageDeals.setText(exp.getMessage());
@@ -216,7 +209,7 @@ public class ProductMenuFrame extends JFrame {
                 }
             } else if (e.getSource() == filtterByTypeButton) {
                 try {
-                    dealsList.setListData(dealController.getDealsByType(DealTypeDTO.valueOf(buttonGroup.getSelection().getActionCommand())).toArray());
+                    dealsList.setListData(dealTS.getDealsByType(DealTypeDTO.valueOf(buttonGroup.getSelection().getActionCommand())).toArray());
                     messageField.setText("successfull");
                 } catch (Exception exp) {
                     messageDeals.setText(exp.getMessage());
@@ -235,7 +228,7 @@ public class ProductMenuFrame extends JFrame {
             if (e.getSource() == addToCartButton) {
                 try {
                     DealDTO dealDTO = (DealDTO) dealsList.getSelectedValue();
-                    cartController.addProductToCart(dealDTO, Integer.parseInt(quantityToBuyField.getText()));
+                    cartTS.addProductToCart(dealDTO, Integer.parseInt(quantityToBuyField.getText()));
                     addToCartMessage.setText("Added!");
                 } catch (Exception exp) {
                     exp.printStackTrace();

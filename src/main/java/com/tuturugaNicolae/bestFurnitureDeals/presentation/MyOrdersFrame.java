@@ -1,6 +1,6 @@
 package com.tuturugaNicolae.bestFurnitureDeals.presentation;
 
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller.OrderController;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.transactionScript.OrderTS;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.ClientOrderDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.FeedbackMessageDTO;
 import org.springframework.context.ApplicationContext;
@@ -25,16 +25,11 @@ public class MyOrdersFrame extends JFrame {
      */
     private JFrame parentFrame;
 
-    /**
-     * Current frame variables
-     */
-    private ApplicationContext applicationContext;
-    private OrderController orderController;
+    private OrderTS orderTS;
 
     public MyOrdersFrame(ApplicationContext applicationContext, JFrame parentFrame) {
-        this.applicationContext = applicationContext;
         this.parentFrame = parentFrame;
-        this.orderController = applicationContext.getBean("orderController", OrderController.class);
+        this.orderTS = applicationContext.getBean("orderTS", OrderTS.class);
         setContentPane(panel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
@@ -47,7 +42,7 @@ public class MyOrdersFrame extends JFrame {
 
     public void initializeOrdersList() {
         try {
-            clientOrders.setListData(orderController.getFinishedOrdersForLoggedUser().toArray());
+            clientOrders.setListData(orderTS.getFinishedOrdersForLoggedUser().toArray());
         } catch (Exception e) {
             clientOrders.setListData(new ArrayList<ClientOrderDTO>().toArray());
             e.printStackTrace();
@@ -63,7 +58,7 @@ public class MyOrdersFrame extends JFrame {
             } else if (e.getSource() == getOrderHistoryButton) {
                 try {
                     ClientOrderDTO clientOrderDTO = (ClientOrderDTO) clientOrders.getSelectedValue();
-                    orderHistoryField.setText(orderController.getOrderHistoryForAClientOrder(clientOrderDTO).toString());
+                    orderHistoryField.setText(orderTS.getOrderHistoryForAClientOrder(clientOrderDTO).toString());
                 } catch (Exception exp) {
                     orderHistoryField.setText(exp.getMessage());
                 }
@@ -73,7 +68,7 @@ public class MyOrdersFrame extends JFrame {
                     FeedbackMessageDTO feedbackMessageDTO = new FeedbackMessageDTO();
                     feedbackMessageDTO.setMessageBody(feedbackMessageField.getText());
                     feedbackMessageDTO.setTitle(feedbackTitleField.getText());
-                    orderController.postFeedbackMessage(feedbackMessageDTO, orderController.getOrderHistoryForAClientOrder(clientOrderDTO));
+                    orderTS.postFeedbackMessage(feedbackMessageDTO, orderTS.getOrderHistoryForAClientOrder(clientOrderDTO));
                     orderHistoryField.setText("Successful");
                 } catch (Exception exp) {
                     orderHistoryField.setText(exp.getMessage());

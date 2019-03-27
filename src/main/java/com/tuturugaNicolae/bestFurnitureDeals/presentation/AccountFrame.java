@@ -1,6 +1,6 @@
 package com.tuturugaNicolae.bestFurnitureDeals.presentation;
 
-import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller.UserController;
+import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.transactionScript.UserTS;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserTypeDTO;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.security.SecurityContext;
@@ -29,17 +29,12 @@ public class AccountFrame extends JFrame {
     private JFrame parentFrame;
     private JFrame loginFrame;
 
-    /**
-     * Current frame variables
-     */
-    private ApplicationContext applicationContext;
-    private UserController userController;
+    private UserTS userTS;
     private SecurityContext securityContext;
 
     public AccountFrame(ApplicationContext applicationContext, JFrame parentFrame, JFrame loginFrame) {
-        this.applicationContext = applicationContext;
         this.loginFrame = loginFrame;
-        this.userController = applicationContext.getBean("userController", UserController.class);
+        this.userTS = applicationContext.getBean("userTS", UserTS.class);
         this.securityContext = applicationContext.getBean("securityContext", SecurityContext.class);
         this.parentFrame = parentFrame;
         this.backButton.addActionListener(new AccountListener());
@@ -53,7 +48,7 @@ public class AccountFrame extends JFrame {
     }
 
     public void initTextFields() {
-        UserDTO userDTO = userController.getUserByUsername(securityContext.getNameOfAuthenticatedUser());
+        UserDTO userDTO = userTS.getUserByUsername(securityContext.getNameOfAuthenticatedUser());
         actualIdField.setText(userDTO.getId().toString());
         actualUsernameField.setText(userDTO.getUsername());
         actualMailField.setText(userDTO.getMail());
@@ -68,7 +63,7 @@ public class AccountFrame extends JFrame {
                 setVisible(false);
             } else if (e.getSource() == updateButton) {
                 try {
-                    userController.updateUser(new UserDTO(Long.parseLong(actualIdField.getText()), actualUsernameField.getText(), newPasswordField.getText(), newMailField.getText(), UserTypeDTO.valueOf(actualUserTypeField.getText())), securityContext.getNameOfAuthenticatedUser());
+                    userTS.updateUser(new UserDTO(Long.parseLong(actualIdField.getText()), actualUsernameField.getText(), newPasswordField.getText(), newMailField.getText(), UserTypeDTO.valueOf(actualUserTypeField.getText())), securityContext.getNameOfAuthenticatedUser());
                     initTextFields();
                     mesageField.setText("Updated");
                 } catch (Exception exp) {
@@ -76,7 +71,7 @@ public class AccountFrame extends JFrame {
                 }
             } else if (e.getSource() == deleteButton) {
                 try {
-                    userController.deleteUser();
+                    userTS.deleteUser();
                     loginFrame.setVisible(true);
                     setVisible(false);
                 } catch (Exception exp) {

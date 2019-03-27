@@ -1,4 +1,4 @@
-package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller;
+package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.transactionScript;
 
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.mapper.Mapper;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.UserDTO;
@@ -11,14 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserController {
+public class UserTS {
     private Mapper<User, UserDTO> mapper;
     private UserService userService;
     private Validator<UserDTO> userValidator;
     private SecurityContext securityContext;
 
     @Autowired
-    public UserController(Mapper<User, UserDTO> mapper, UserService userService, Validator<UserDTO> userValidator, SecurityContext securityContext) {
+    public UserTS(Mapper<User, UserDTO> mapper, UserService userService, Validator<UserDTO> userValidator, SecurityContext securityContext) {
         this.mapper = mapper;
         this.userService = userService;
         this.userValidator = userValidator;

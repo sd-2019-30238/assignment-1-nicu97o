@@ -1,4 +1,4 @@
-package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller;
+package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.transactionScript;
 
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.mapper.Mapper;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.ClientOrderDTO;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class OrderController {
+public class OrderTS {
     private SecurityContext securityContext;
     private ClientOrderService clientOrderService;
     private OrderHistoryService orderHistoryService;
@@ -31,7 +31,7 @@ public class OrderController {
     private FeedbackMessageService feedbackMessageService;
 
     @Autowired
-    public OrderController(SecurityContext securityContext, ClientOrderService clientOrderService, OrderHistoryService orderHistoryService, Mapper<ClientOrder, ClientOrderDTO> clientOrderMapper, Mapper<OrderHistory, OrderHistoryDTO> orderHistoryMapper, Mapper<FeedbackMessage, FeedbackMessageDTO> feedbackMessageMapper, Validator<FeedbackMessageDTO> feedbackMessageValidator, FeedbackMessageService feedbackMessageService) {
+    public OrderTS(SecurityContext securityContext, ClientOrderService clientOrderService, OrderHistoryService orderHistoryService, Mapper<ClientOrder, ClientOrderDTO> clientOrderMapper, Mapper<OrderHistory, OrderHistoryDTO> orderHistoryMapper, Mapper<FeedbackMessage, FeedbackMessageDTO> feedbackMessageMapper, Validator<FeedbackMessageDTO> feedbackMessageValidator, FeedbackMessageService feedbackMessageService) {
         this.securityContext = securityContext;
         this.clientOrderService = clientOrderService;
         this.orderHistoryService = orderHistoryService;

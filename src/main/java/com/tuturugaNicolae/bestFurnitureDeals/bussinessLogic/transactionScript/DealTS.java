@@ -1,4 +1,4 @@
-package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.controller;
+package com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.transactionScript;
 
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.mapper.Mapper;
 import com.tuturugaNicolae.bestFurnitureDeals.bussinessLogic.dto.model.DealDTO;
@@ -16,13 +16,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class DealController {
+public class DealTS {
     private DealService dealService;
     private Mapper<Deal, DealDTO> mapper;
     private Validator<DealDTO> dealValidator;
 
     @Autowired
-    public DealController(DealService dealService, Mapper<Deal, DealDTO> mapper, Validator<DealDTO> dealValidator) {
+    public DealTS(DealService dealService, Mapper<Deal, DealDTO> mapper, Validator<DealDTO> dealValidator) {
         this.dealService = dealService;
         this.mapper = mapper;
         this.dealValidator = dealValidator;
