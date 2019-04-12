@@ -1,6 +1,7 @@
 package com.bestFurnitureDeals;
 
 import com.bestFurnitureDeals.model.*;
+import com.bestFurnitureDeals.service.ClientOrderService;
 import com.bestFurnitureDeals.service.DealService;
 import com.bestFurnitureDeals.service.FurnitureService;
 import com.bestFurnitureDeals.service.UserService;
@@ -21,6 +22,9 @@ public class BestFurnitureDealsApplication {
     private FurnitureService furnitureService;
     @Autowired
     private DealService dealService;
+    @Autowired
+    private ClientOrderService clientOrderService;
+
 
     public static void main(String[] args) {
         SpringApplication.run(BestFurnitureDealsApplication.class, args);

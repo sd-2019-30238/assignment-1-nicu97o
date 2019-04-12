@@ -1,6 +1,8 @@
 package com.bestFurnitureDeals.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 
@@ -12,6 +14,8 @@ import java.util.List;
 @Table
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ClientOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +34,10 @@ public class ClientOrder {
     @Column
     private boolean finished;
 
+    @OneToOne(mappedBy = "clientOrder")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private OrderHistory orderHistory;
+
     @OneToMany(mappedBy = "clientOrder", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Product> products;
@@ -38,4 +46,11 @@ public class ClientOrder {
     @JoinColumn(name = "userId")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private User user;
+
+    public ClientOrder(boolean approved, PaymentMethod paymentMethod, BigDecimal totalPrice, boolean finished) {
+        this.approved = approved;
+        this.paymentMethod = paymentMethod;
+        this.totalPrice = totalPrice;
+        this.finished = finished;
+    }
 }

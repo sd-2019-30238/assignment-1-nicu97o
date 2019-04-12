@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+</head>
+<body>
+<h1>Orders</h1>
+<br>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Approved</th>
+        <th>Payment method</th>
+        <th>Total price</th>
+        <th>Finished</th>
+        <th>Order date and time</th>
+        <th>Order state</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${userOrders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.approved}"></td>
+        <td th:text="${order.paymentMethod}"></td>
+        <td th:text="${order.totalPrice}"></td>
+        <td th:text="${order.finished}"></td>
+        <td th:text="${order.orderHistory.orderPlaceDateTime}"></td>
+        <td th:text="${order.orderHistory.orderState}"></td>
+        <td>
+            <form action="#" th:action="@{/orders/{id} (id = ${order.id})}" th:method="get">
+                <button type="submit" id="details">Details</button>
+            </form>
+            <form action="#" th:action="@{/orders/feedbackMessageForm}" th:method="get">
+                <input type="hidden" step="any" name="orderId" th:value="${order.id}"/>
+                <button type="submit" id="postFeedback">Post feedback</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<a href="/home">Home</a>
+</body>
+</html>

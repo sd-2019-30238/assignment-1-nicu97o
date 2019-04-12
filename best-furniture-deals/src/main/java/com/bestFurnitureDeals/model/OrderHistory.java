@@ -1,6 +1,8 @@
 package com.bestFurnitureDeals.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 
@@ -11,6 +13,8 @@ import java.time.LocalDateTime;
 @Table
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +35,9 @@ public class OrderHistory {
     @OneToOne(mappedBy = "orderHistory")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private FeedbackMessage feedbackMessage;
+
+    public OrderHistory(LocalDateTime orderPlaceDateTime, OrderState orderState) {
+        this.orderPlaceDateTime = orderPlaceDateTime;
+        this.orderState = orderState;
+    }
 }
