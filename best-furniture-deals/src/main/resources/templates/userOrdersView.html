@@ -37,10 +37,24 @@
                 <input type="hidden" step="any" name="orderId" th:value="${order.id}"/>
                 <button type="submit" id="postFeedback">Post feedback</button>
             </form>
+            <form action="#" th:action="@{/orders/approveOrder/{id} (id = ${order.id})}" th:method="put">
+                <input type="hidden" name="_method" value="put"/>
+                <button type="submit" id="approve">Approve</button>
+            </form>
+            <form action="#" th:action="@{/orders/state/{id} (id = ${order.id})}" th:method="put">
+                <input type="hidden" name="_method" value="put"/>
+                <button type="submit" id="updateState">Update state</button>
+            </form>
         </td>
     </tr>
     </tbody>
 </table>
+<form action="#" th:action="@{/orders}" th:method="get">
+    <button type="submit" id="getAllOrders">Get all orders</button>
+</form>
+<form action="#" th:action="@{/orders/unapproved}" th:method="get">
+    <button type="submit" id="unapproved">Get all unapproved orders</button>
+</form>
 <br>
 <a href="/home">Home</a>
 </body>

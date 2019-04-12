@@ -66,10 +66,29 @@ public class OrderController {
         return modelAndView;
     }
 
-//    @PutMapping("/{id}")
-//    public ModelAndView updateState(@PathVariable("id") long id){
-//        ModelAndView modelAndView = new ModelAndView("redirect:/");
-//
-//        return modelAndView;
-//    }
+    @PutMapping("/approveOrder/{id}")
+    public ModelAndView approveOrder(@PathVariable("id") long id) {
+        clientOrderServiceFacade.approveOrder(id);
+        return new ModelAndView("redirect:/orders");
+    }
+
+    @PutMapping("/state/{id}")
+    public ModelAndView updateState(@PathVariable("id") long id) {
+        clientOrderServiceFacade.updateOrderState(id);
+        return new ModelAndView("redirect:/orders");
+    }
+
+    @GetMapping
+    public ModelAndView getAllClientOrders() {
+        ModelAndView modelAndView = new ModelAndView("userOrdersView");
+        modelAndView.addObject("userOrders", clientOrderServiceFacade.getAllOrders());
+        return modelAndView;
+    }
+
+    @GetMapping("/unapproved")
+    public ModelAndView getAllUnapprovedClientOrders() {
+        ModelAndView modelAndView = new ModelAndView("userOrdersView");
+        modelAndView.addObject("userOrders", clientOrderServiceFacade.getAllUnapprovedClientOrders());
+        return modelAndView;
+    }
 }

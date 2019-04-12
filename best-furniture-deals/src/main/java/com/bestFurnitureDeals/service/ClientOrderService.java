@@ -11,9 +11,15 @@ public interface ClientOrderService {
 
     ClientOrder getCurrentClientOrderForAnUser(String loggedUser);
 
+    List<ClientOrder> getAllOrders();
+
+    List<ClientOrder> getAllUnapprovedClientOrders();
+
     List<ClientOrder> getOrdersForAnUser(String loggedUser);
 
     void updateOrderState(long id);
 
     void checkoutCurrentOrder(String username);
+
+    void approveOrder(long orderId);
 }

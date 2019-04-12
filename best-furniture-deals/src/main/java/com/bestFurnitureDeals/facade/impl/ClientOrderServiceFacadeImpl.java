@@ -51,4 +51,19 @@ public class ClientOrderServiceFacadeImpl implements ClientOrderServiceFacade {
     public void checkoutCurrentOrder(String username) {
         clientOrderService.checkoutCurrentOrder(username);
     }
+
+    @Override
+    public void approveOrder(long orderId) {
+        clientOrderService.approveOrder(orderId);
+    }
+
+    @Override
+    public List<ClientOrderDTO> getAllOrders() {
+        return clientOrderService.getAllOrders().stream().map(mapper::convertToDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ClientOrderDTO> getAllUnapprovedClientOrders() {
+        return clientOrderService.getAllUnapprovedClientOrders().stream().map(mapper::convertToDTO).collect(Collectors.toList());
+    }
 }

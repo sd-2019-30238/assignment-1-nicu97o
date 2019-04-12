@@ -10,4 +10,6 @@ public interface ClientOrderDAO extends JpaRepository<ClientOrder, Long> {
     Optional<ClientOrder> findClientOrderByUserUsernameAndAndFinishedFalse(String username);
 
     List<ClientOrder> findClientOrdersByUserUsername(String username);
+
+    List<ClientOrder> findClientOrdersByApprovedFalseAndFinishedTrue();
 }

@@ -16,4 +16,10 @@ public interface ClientOrderServiceFacade {
     void updateOrderState(long id);
 
     void checkoutCurrentOrder(String username);
+
+    void approveOrder(long orderId);
+
+    List<ClientOrderDTO> getAllOrders();
+
+    List<ClientOrderDTO> getAllUnapprovedClientOrders();
 }

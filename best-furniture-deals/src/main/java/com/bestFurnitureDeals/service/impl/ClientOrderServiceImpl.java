@@ -2,6 +2,7 @@ package com.bestFurnitureDeals.service.impl;
 
 import com.bestFurnitureDeals.dao.ClientOrderDAO;
 import com.bestFurnitureDeals.exception.NoClientOrderFoundException;
+import com.bestFurnitureDeals.exception.OrderNotApprovedException;
 import com.bestFurnitureDeals.exception.OrderNotPlacedException;
 import com.bestFurnitureDeals.model.ClientOrder;
 import com.bestFurnitureDeals.model.OrderHistory;
@@ -59,6 +60,16 @@ public class ClientOrderServiceImpl implements ClientOrderService {
     }
 
     @Override
+    public List<ClientOrder> getAllOrders() {
+        return clientOrderDAO.findAll();
+    }
+
+    @Override
+    public List<ClientOrder> getAllUnapprovedClientOrders() {
+        return clientOrderDAO.findClientOrdersByApprovedFalseAndFinishedTrue();
+    }
+
+    @Override
     public List<ClientOrder> getOrdersForAnUser(String loggedUser) {
         return clientOrderDAO.findClientOrdersByUserUsername(loggedUser);
     }
@@ -66,14 +77,13 @@ public class ClientOrderServiceImpl implements ClientOrderService {
     @Override
     public void updateOrderState(long id) {
         ClientOrder clientOrder = getClientOrderById(id);
-        if (clientOrder.getOrderHistory().equals(OrderState.PIKING)) {
+        if (clientOrder.getOrderHistory().getOrderState().equals(OrderState.PIKING)) {
             throw new OrderNotPlacedException();
-        } else if (clientOrder.getOrderHistory().equals(OrderState.PLACED)) {
-            clientOrder.setApproved(true);
-            clientOrder.getOrderHistory().setOrderState(OrderState.ACCEPTED);
-        } else if (clientOrder.getOrderHistory().equals(OrderState.ACCEPTED)) {
+        } else if (!clientOrder.isApproved()) {
+            throw new OrderNotApprovedException();
+        } else if (clientOrder.getOrderHistory().getOrderState().equals(OrderState.ACCEPTED)) {
             clientOrder.getOrderHistory().setOrderState(OrderState.DELIVERED);
-        } else if (clientOrder.getOrderHistory().equals(OrderState.DELIVERED)) {
+        } else if (clientOrder.getOrderHistory().getOrderState().equals(OrderState.DELIVERED)) {
             clientOrder.getOrderHistory().setOrderState(OrderState.COMPLETED);
         }
         clientOrderDAO.save(clientOrder);
@@ -85,6 +95,17 @@ public class ClientOrderServiceImpl implements ClientOrderService {
         clientOrder.setFinished(true);
         clientOrder.getOrderHistory().setOrderPlaceDateTime(LocalDateTime.now());
         clientOrder.getOrderHistory().setOrderState(OrderState.PLACED);
+        clientOrderDAO.save(clientOrder);
+    }
+
+    @Override
+    public void approveOrder(long orderId) {
+        ClientOrder clientOrder = getClientOrderById(orderId);
+        if (!clientOrder.isFinished()) {
+            throw new OrderNotPlacedException();
+        }
+        clientOrder.setApproved(true);
+        clientOrder.getOrderHistory().setOrderState(OrderState.ACCEPTED);
         clientOrderDAO.save(clientOrder);
     }
 }
