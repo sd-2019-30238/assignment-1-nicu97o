@@ -5,6 +5,7 @@ import com.bestFurnitureDeals.exception.NoFurnitureFoundException;
 import com.bestFurnitureDeals.model.Furniture;
 import com.bestFurnitureDeals.service.FurnitureService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,19 +29,18 @@ public class FurnitureServiceImpl implements FurnitureService {
     @Override
     public List<Furniture> getAllFurniture() {
         List<Furniture> furniture = furnitureDAO.findAll();
-//        if (furniture.isEmpty()) {
-//            throw new NoFurnitureFoundException();
-//        }
         return furniture;
     }
 
     @Override
+    @PreAuthorize("hasAuthority('STAFF')")
     public void deleteFurniture(long id) {
         Furniture furniture = getFurnitureById(id);
         furnitureDAO.delete(furniture);
     }
 
     @Override
+    @PreAuthorize("hasAuthority('STAFF')")
     public void updateFurniture(Furniture furniture) {
         Furniture oldFurniture = getFurnitureById(furniture.getId());
         oldFurniture.setName(furniture.getName());
@@ -49,6 +49,7 @@ public class FurnitureServiceImpl implements FurnitureService {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('STAFF')")
     public void addFurniture(Furniture furniture) {
         furnitureDAO.save(furniture);
     }

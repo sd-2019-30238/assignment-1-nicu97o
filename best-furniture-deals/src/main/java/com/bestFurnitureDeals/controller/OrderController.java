@@ -59,6 +59,13 @@ public class OrderController {
         return modelAndView;
     }
 
+    @GetMapping("/feedbackMessage")
+    public ModelAndView getFeedbackMessage(@RequestParam("orderId") long orderId){
+        ModelAndView modelAndView = new ModelAndView("feedbackMessageView");
+        modelAndView.addObject("feedbackMessage", feedbackMessageServiceFacade.getFeedbackMessageByOrderId(orderId));
+        return modelAndView;
+    }
+
     @PutMapping("/checkout")
     public ModelAndView checkout(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView("redirect:/orders/currentOrder");

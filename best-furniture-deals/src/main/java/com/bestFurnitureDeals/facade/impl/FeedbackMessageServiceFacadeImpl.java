@@ -23,4 +23,14 @@ public class FeedbackMessageServiceFacadeImpl implements FeedbackMessageServiceF
     public void postFeedbackMessageToAnOrder(long orderId, FeedbackMessageDTO feedbackMessageDTO) {
         feedbackMessageService.postFeedbackMessageToAnOrder(orderId, mapper.convertToEntity(feedbackMessageDTO));
     }
+
+    @Override
+    public FeedbackMessageDTO getFeedbackMessageById(long id) {
+        return mapper.convertToDTO(feedbackMessageService.getFeedbackMessageById(id));
+    }
+
+    @Override
+    public FeedbackMessageDTO getFeedbackMessageByOrderId(long id) {
+        return mapper.convertToDTO(feedbackMessageService.getFeedbackMessageByOrderId(id));
+    }
 }

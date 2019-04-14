@@ -22,4 +22,6 @@ public interface DealService {
     List<Deal> getDealsByName(String name);
 
     List<Deal> getDealsByType(DealType dealType);
+
+    void updateDeal(Deal deal);
 }

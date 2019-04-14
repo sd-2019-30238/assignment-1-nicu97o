@@ -8,6 +8,7 @@ import com.bestFurnitureDeals.model.Furniture;
 import com.bestFurnitureDeals.service.DealService;
 import com.bestFurnitureDeals.service.FurnitureService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +35,7 @@ public class DealServiceImpl implements DealService {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('STAFF')")
     public void addDeal(Deal deal, long furnitureId) {
         Furniture furniture = furnitureService.getFurnitureById(furnitureId);
         deal.setFurniture(furniture);
@@ -41,6 +43,7 @@ public class DealServiceImpl implements DealService {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('STAFF')")
     public List<Deal> getAllDeals() {
         return dealDAO.findAll();
     }
@@ -51,6 +54,7 @@ public class DealServiceImpl implements DealService {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('STAFF')")
     public void deleteDeal(long id) {
         Deal deal = getDealById(id);
         dealDAO.delete(deal);
@@ -69,5 +73,10 @@ public class DealServiceImpl implements DealService {
     @Override
     public List<Deal> getDealsByType(DealType dealType) {
         return dealDAO.findDealsByAvailableTrueAndDealType(dealType);
+    }
+
+    @Override
+    public void updateDeal(Deal deal) {
+        dealDAO.save(deal);
     }
 }

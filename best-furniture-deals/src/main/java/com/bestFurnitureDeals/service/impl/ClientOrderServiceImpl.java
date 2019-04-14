@@ -2,6 +2,7 @@ package com.bestFurnitureDeals.service.impl;
 
 import com.bestFurnitureDeals.dao.ClientOrderDAO;
 import com.bestFurnitureDeals.exception.NoClientOrderFoundException;
+import com.bestFurnitureDeals.exception.NoProductFoundException;
 import com.bestFurnitureDeals.exception.OrderNotApprovedException;
 import com.bestFurnitureDeals.exception.OrderNotPlacedException;
 import com.bestFurnitureDeals.model.ClientOrder;
@@ -11,6 +12,7 @@ import com.bestFurnitureDeals.model.PaymentMethod;
 import com.bestFurnitureDeals.service.ClientOrderService;
 import com.bestFurnitureDeals.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,11 +62,13 @@ public class ClientOrderServiceImpl implements ClientOrderService {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('STAFF')")
     public List<ClientOrder> getAllOrders() {
         return clientOrderDAO.findAll();
     }
 
     @Override
+    @PreAuthorize("hasAuthority('STAFF')")
     public List<ClientOrder> getAllUnapprovedClientOrders() {
         return clientOrderDAO.findClientOrdersByApprovedFalseAndFinishedTrue();
     }
@@ -75,6 +79,7 @@ public class ClientOrderServiceImpl implements ClientOrderService {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('STAFF')")
     public void updateOrderState(long id) {
         ClientOrder clientOrder = getClientOrderById(id);
         if (clientOrder.getOrderHistory().getOrderState().equals(OrderState.PIKING)) {
@@ -92,6 +97,9 @@ public class ClientOrderServiceImpl implements ClientOrderService {
     @Override
     public void checkoutCurrentOrder(String username) {
         ClientOrder clientOrder = getCurrentClientOrderForAnUser(username);
+        if (clientOrder.getProducts().isEmpty()) {
+            throw new NoProductFoundException("No products added for current order!");
+        }
         clientOrder.setFinished(true);
         clientOrder.getOrderHistory().setOrderPlaceDateTime(LocalDateTime.now());
         clientOrder.getOrderHistory().setOrderState(OrderState.PLACED);
@@ -99,6 +107,7 @@ public class ClientOrderServiceImpl implements ClientOrderService {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('STAFF')")
     public void approveOrder(long orderId) {
         ClientOrder clientOrder = getClientOrderById(orderId);
         if (!clientOrder.isFinished()) {

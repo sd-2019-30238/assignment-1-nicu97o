@@ -1,6 +1,8 @@
 package com.bestFurnitureDeals.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 
@@ -11,6 +13,8 @@ import java.math.BigDecimal;
 @Table
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +35,11 @@ public class Product {
     @JoinColumn(name = "clientOrderId")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private ClientOrder clientOrder;
+
+    public Product(int selectedQuantity, BigDecimal price, Deal deal, ClientOrder clientOrder) {
+        this.selectedQuantity = selectedQuantity;
+        this.price = price;
+        this.deal = deal;
+        this.clientOrder = clientOrder;
+    }
 }

@@ -1,6 +1,7 @@
 package com.bestFurnitureDeals.service.impl;
 
 import com.bestFurnitureDeals.dao.FeedbackMessageDAO;
+import com.bestFurnitureDeals.exception.NoFeedbackMessageFoundException;
 import com.bestFurnitureDeals.exception.OrderNotFinishedException;
 import com.bestFurnitureDeals.model.ClientOrder;
 import com.bestFurnitureDeals.model.FeedbackMessage;
@@ -8,6 +9,7 @@ import com.bestFurnitureDeals.model.OrderState;
 import com.bestFurnitureDeals.service.ClientOrderService;
 import com.bestFurnitureDeals.service.FeedbackMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,5 +33,16 @@ public class FeedbackMessageServiceImpl implements FeedbackMessageService {
         }
         feedbackMessage.setOrderHistory(clientOrder.getOrderHistory());
         feedbackMessageDAO.save(feedbackMessage);
+    }
+
+    @Override
+    public FeedbackMessage getFeedbackMessageById(long id) {
+        return feedbackMessageDAO.findById(id).orElseThrow(() -> new NoFeedbackMessageFoundException("No feedback message with id " + id + " found!"));
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('STAFF')")
+    public FeedbackMessage getFeedbackMessageByOrderId(long id) {
+        return clientOrderService.getClientOrderById(id).getOrderHistory().getFeedbackMessage();
     }
 }

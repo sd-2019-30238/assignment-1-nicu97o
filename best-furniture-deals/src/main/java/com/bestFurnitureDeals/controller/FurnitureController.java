@@ -37,7 +37,7 @@ public class FurnitureController {
     @GetMapping("/showAddFurnitureForm")
     public ModelAndView showAddFurnitureForm() {
         ModelAndView modelAndView = new ModelAndView("addFurnitureView");
-        modelAndView.addObject("furnitureDto", new FurnitureDTO());
+        modelAndView.addObject("furnitureDTO", new FurnitureDTO());
         return modelAndView;
     }
 
@@ -56,7 +56,7 @@ public class FurnitureController {
     @GetMapping("/showUpdateFurnitureForm/{id}")
     public ModelAndView showUpdateFurnitureForm(@PathVariable("id") long id) {
         ModelAndView modelAndView = new ModelAndView("updateFurnitureView");
-        modelAndView.addObject("furniture", furnitureServiceFacade.getFurnitureById(id));
+        modelAndView.addObject("furnitureDTO", furnitureServiceFacade.getFurnitureById(id));
         return modelAndView;
     }
 

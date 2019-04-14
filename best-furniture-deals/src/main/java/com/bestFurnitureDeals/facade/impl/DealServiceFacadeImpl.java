@@ -63,4 +63,9 @@ public class DealServiceFacadeImpl implements DealServiceFacade {
     public List<DealDTO> getDealsByType(DealType dealType) {
         return dealService.getDealsByType(dealType).stream().map(mapper::convertToDTO).collect(Collectors.toList());
     }
+
+    @Override
+    public void updateDeal(DealDTO dealDTO) {
+        dealService.updateDeal(mapper.convertToEntity(dealDTO));
+    }
 }

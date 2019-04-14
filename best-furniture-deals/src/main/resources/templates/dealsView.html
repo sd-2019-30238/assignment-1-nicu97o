@@ -33,6 +33,11 @@
                 <input type="hidden" name="_method" value="delete"/>
                 <button type="submit" id="deleteButton">Delete</button>
             </form>
+
+            <form action="#" th:action="@{/products/productForm}" th:method="get">
+                <input type="hidden" name="dealId" th:value="${deal.id}"/>
+                <button type="submit" id="buyProduct">Buy product</button>
+            </form>
         </td>
     </tr>
     </tbody>

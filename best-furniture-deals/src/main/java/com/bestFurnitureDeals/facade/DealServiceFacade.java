@@ -22,4 +22,6 @@ public interface DealServiceFacade {
     List<DealDTO> getDealsByName(String name);
 
     List<DealDTO> getDealsByType(DealType dealType);
+
+    void updateDeal(DealDTO dealDTO);
 }

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add product to cart</title>
+</head>
+<body>
+<h1>Add product</h1>
+<br>
+<label for="dealId">Deal Id</label>
+<input th:readonly="true" type="number" th:field="${deal.id}" id="dealId" placeholder="Id">
+<br>
+<label for="dealName">Deal Name</label>
+<input th:readonly="true" type="text" th:field="${deal.name}" id="dealName" placeholder="Name">
+<br>
+<label for="dealType">Deal type</label>
+<input th:readonly="true" type="text" th:field="${deal.dealType}" id="dealType" placeholder="Deal type">
+<br>
+<label for="dealPrice">Deal type</label>
+<input th:readonly="true" type="number" step="any" th:field="${deal.price}" id="dealPrice" placeholder="Deal price">
+<br>
+<label for="dealAvailable">Deal available</label>
+<input th:readonly="true" type="text" th:field="${deal.available}" id="dealAvailable" placeholder="Deal available">
+<br>
+<label for="availableQuantity">Available quantity</label>
+<input th:readonly="true" type="text" th:field="${deal.availableQuantity}" id="availableQuantity" placeholder="Available quantity">
+<br>
+<label for="furnitureName">Furniture name</label>
+<input th:readonly="true" type="text" th:field="${deal.furniture.name}" id="furnitureName" placeholder="Furniture name">
+
+<form action="#" th:action="@{/products}" method="post">
+    <br>
+    <input type="hidden" name="dealId" th:value="${deal.id}"/>
+    <label for="quantity">Wanted quantity</label>
+    <input type="text" name="active" id="quantity" th:name="quantity"/>
+    <br>
+    <input type="submit" value="Submit">
+    <br>
+</form>
+<br>
+<a href="/deals">Back</a>
+</body>
+</html>

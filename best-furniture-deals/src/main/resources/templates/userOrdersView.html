@@ -45,6 +45,10 @@
                 <input type="hidden" name="_method" value="put"/>
                 <button type="submit" id="updateState">Update state</button>
             </form>
+            <form action="#" th:action="@{/orders/feedbackMessage}" th:method="get">
+                <input type="hidden" name="orderId" th:value="${order.id}"/>
+                <button type="submit" id="getFeedbackMessage">Get feedback message</button>
+            </form>
         </td>
     </tr>
     </tbody>
