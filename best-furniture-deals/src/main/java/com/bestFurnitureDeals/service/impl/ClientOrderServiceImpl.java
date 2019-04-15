@@ -5,17 +5,16 @@ import com.bestFurnitureDeals.exception.NoClientOrderFoundException;
 import com.bestFurnitureDeals.exception.NoProductFoundException;
 import com.bestFurnitureDeals.exception.OrderNotApprovedException;
 import com.bestFurnitureDeals.exception.OrderNotPlacedException;
-import com.bestFurnitureDeals.model.ClientOrder;
-import com.bestFurnitureDeals.model.OrderHistory;
-import com.bestFurnitureDeals.model.OrderState;
-import com.bestFurnitureDeals.model.PaymentMethod;
+import com.bestFurnitureDeals.model.*;
 import com.bestFurnitureDeals.service.ClientOrderService;
+import com.bestFurnitureDeals.service.ObserverService;
 import com.bestFurnitureDeals.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,11 +25,13 @@ import java.util.Optional;
 public class ClientOrderServiceImpl implements ClientOrderService {
     private ClientOrderDAO clientOrderDAO;
     private UserService userService;
+    private ObserverService<UserObserver, ClientOrder> observerService;
 
     @Autowired
-    public ClientOrderServiceImpl(ClientOrderDAO clientOrderDAO, UserService userService) {
+    public ClientOrderServiceImpl(ClientOrderDAO clientOrderDAO, UserService userService, ObserverService<UserObserver, ClientOrder> observerService) {
         this.clientOrderDAO = clientOrderDAO;
         this.userService = userService;
+        this.observerService = observerService;
     }
 
     @Override
@@ -80,7 +81,7 @@ public class ClientOrderServiceImpl implements ClientOrderService {
 
     @Override
     @PreAuthorize("hasAuthority('STAFF')")
-    public void updateOrderState(long id) {
+    public void updateOrderState(long id) throws MessagingException {
         ClientOrder clientOrder = getClientOrderById(id);
         if (clientOrder.getOrderHistory().getOrderState().equals(OrderState.PIKING)) {
             throw new OrderNotPlacedException();
@@ -92,13 +93,17 @@ public class ClientOrderServiceImpl implements ClientOrderService {
             clientOrder.getOrderHistory().setOrderState(OrderState.COMPLETED);
         }
         clientOrderDAO.save(clientOrder);
+        observerService.notifyObservers(clientOrder.getId());
     }
 
     @Override
-    public void checkoutCurrentOrder(String username) {
+    public void checkoutCurrentOrder(String username, boolean subscribe) {
         ClientOrder clientOrder = getCurrentClientOrderForAnUser(username);
         if (clientOrder.getProducts().isEmpty()) {
             throw new NoProductFoundException("No products added for current order!");
+        }
+        if (subscribe) {
+            observerService.addObserver(clientOrder.getId(), new UserObserver(0L, userService.getUserByUsername(username).getMail()));
         }
         clientOrder.setFinished(true);
         clientOrder.getOrderHistory().setOrderPlaceDateTime(LocalDateTime.now());
@@ -108,7 +113,7 @@ public class ClientOrderServiceImpl implements ClientOrderService {
 
     @Override
     @PreAuthorize("hasAuthority('STAFF')")
-    public void approveOrder(long orderId) {
+    public void approveOrder(long orderId) throws MessagingException {
         ClientOrder clientOrder = getClientOrderById(orderId);
         if (!clientOrder.isFinished()) {
             throw new OrderNotPlacedException();
@@ -116,5 +121,6 @@ public class ClientOrderServiceImpl implements ClientOrderService {
         clientOrder.setApproved(true);
         clientOrder.getOrderHistory().setOrderState(OrderState.ACCEPTED);
         clientOrderDAO.save(clientOrder);
+        observerService.notifyObservers(clientOrder.getId());
     }
 }

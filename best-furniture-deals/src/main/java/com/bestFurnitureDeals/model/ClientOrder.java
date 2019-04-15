@@ -1,5 +1,6 @@
 package com.bestFurnitureDeals.model;
 
+import com.bestFurnitureDeals.model.observer.Observable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClientOrder {
+public class ClientOrder extends Observable<UserObserver> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

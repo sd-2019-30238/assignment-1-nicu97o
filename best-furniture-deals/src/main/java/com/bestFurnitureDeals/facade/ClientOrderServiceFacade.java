@@ -2,6 +2,7 @@ package com.bestFurnitureDeals.facade;
 
 import com.bestFurnitureDeals.dto.model.ClientOrderDTO;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 public interface ClientOrderServiceFacade {
@@ -13,11 +14,11 @@ public interface ClientOrderServiceFacade {
 
     List<ClientOrderDTO> getOrdersForAnUser(String loggedUser);
 
-    void updateOrderState(long id);
+    void updateOrderState(long id) throws MessagingException;
 
-    void checkoutCurrentOrder(String username);
+    void checkoutCurrentOrder(String username, boolean subscribe);
 
-    void approveOrder(long orderId);
+    void approveOrder(long orderId) throws MessagingException;
 
     List<ClientOrderDTO> getAllOrders();
 

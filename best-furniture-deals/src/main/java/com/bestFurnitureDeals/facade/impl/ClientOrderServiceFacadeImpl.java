@@ -8,6 +8,7 @@ import com.bestFurnitureDeals.service.ClientOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,17 +44,17 @@ public class ClientOrderServiceFacadeImpl implements ClientOrderServiceFacade {
     }
 
     @Override
-    public void updateOrderState(long id) {
+    public void updateOrderState(long id) throws MessagingException {
         clientOrderService.updateOrderState(id);
     }
 
     @Override
-    public void checkoutCurrentOrder(String username) {
-        clientOrderService.checkoutCurrentOrder(username);
+    public void checkoutCurrentOrder(String username, boolean subscribe) {
+        clientOrderService.checkoutCurrentOrder(username, subscribe);
     }
 
     @Override
-    public void approveOrder(long orderId) {
+    public void approveOrder(long orderId) throws MessagingException {
         clientOrderService.approveOrder(orderId);
     }
 

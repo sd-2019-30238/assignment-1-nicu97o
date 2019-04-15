@@ -23,18 +23,24 @@
         <td th:text="${product.deal.furniture.name}"></td>
         <td th:text="${product.deal.furniture.description}"></td>
         <td th:text="${product.selectedQuantity}"></td>
-        <td th:text="${product.deal.price}"></td>
-        <td><form action="#" th:action="@{/products/{id} (id = ${product.id})}" th:method="delete">
-            <input type="hidden" name="_method" value="delete"/>
-            <button type="submit" id="delete">Delete</button>
-        </form></td>
+        <td th:text="${product.price}"></td>
+        <td>
+            <form action="#" th:action="@{/products/{id} (id = ${product.id})}" th:method="delete">
+                <input type="hidden" name="_method" value="delete"/>
+                <button type="submit" id="delete">Delete</button>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>
 <br>
 <span th:if="${order.finished} != true">
-<form action="#" th:action="@{/orders/checkout }" th:method="put">
+<form action="#" th:action="@{/orders/checkout}" th:method="put">
     <input type="hidden" name="_method" value="put"/>
+    <br>
+    <label for="subscribe">Subscribe</label>
+    <input type="checkbox" name="subscribe" id="subscribe"/>
+    <br>
     <button type="submit" id="details">Checkout</button>
 </form>
 </span>

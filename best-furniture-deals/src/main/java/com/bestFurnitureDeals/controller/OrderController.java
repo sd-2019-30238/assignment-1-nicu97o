@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 @Controller
@@ -60,27 +61,27 @@ public class OrderController {
     }
 
     @GetMapping("/feedbackMessage")
-    public ModelAndView getFeedbackMessage(@RequestParam("orderId") long orderId){
+    public ModelAndView getFeedbackMessage(@RequestParam("orderId") long orderId) {
         ModelAndView modelAndView = new ModelAndView("feedbackMessageView");
         modelAndView.addObject("feedbackMessage", feedbackMessageServiceFacade.getFeedbackMessageByOrderId(orderId));
         return modelAndView;
     }
 
     @PutMapping("/checkout")
-    public ModelAndView checkout(Authentication authentication) {
+    public ModelAndView checkout(Authentication authentication, @RequestParam("subscribe") boolean subscribe) {
         ModelAndView modelAndView = new ModelAndView("redirect:/orders/currentOrder");
-        clientOrderServiceFacade.checkoutCurrentOrder(authentication.getName());
+        clientOrderServiceFacade.checkoutCurrentOrder(authentication.getName(), subscribe);
         return modelAndView;
     }
 
     @PutMapping("/approveOrder/{id}")
-    public ModelAndView approveOrder(@PathVariable("id") long id) {
+    public ModelAndView approveOrder(@PathVariable("id") long id) throws MessagingException {
         clientOrderServiceFacade.approveOrder(id);
         return new ModelAndView("redirect:/orders");
     }
 
     @PutMapping("/state/{id}")
-    public ModelAndView updateState(@PathVariable("id") long id) {
+    public ModelAndView updateState(@PathVariable("id") long id) throws MessagingException {
         clientOrderServiceFacade.updateOrderState(id);
         return new ModelAndView("redirect:/orders");
     }

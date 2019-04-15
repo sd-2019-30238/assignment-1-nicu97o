@@ -2,6 +2,7 @@ package com.bestFurnitureDeals.service;
 
 import com.bestFurnitureDeals.model.ClientOrder;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 public interface ClientOrderService {
@@ -17,9 +18,9 @@ public interface ClientOrderService {
 
     List<ClientOrder> getOrdersForAnUser(String loggedUser);
 
-    void updateOrderState(long id);
+    void updateOrderState(long id) throws MessagingException;
 
-    void checkoutCurrentOrder(String username);
+    void checkoutCurrentOrder(String username, boolean subscribe);
 
-    void approveOrder(long orderId);
+    void approveOrder(long orderId) throws MessagingException;
 }
