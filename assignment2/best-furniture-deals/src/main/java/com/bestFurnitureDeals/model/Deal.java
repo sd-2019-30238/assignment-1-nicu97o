@@ -1,9 +1,6 @@
 package com.bestFurnitureDeals.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -16,6 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Deal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,10 +38,12 @@ public class Deal {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "furnitureId")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @EqualsAndHashCode.Exclude
     private Furniture furniture;
 
     @OneToMany(mappedBy = "deal", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
     private List<Product> products;
 
     public Deal(String name, DealType dealType, BigDecimal price, boolean available, int availableQuantity) {

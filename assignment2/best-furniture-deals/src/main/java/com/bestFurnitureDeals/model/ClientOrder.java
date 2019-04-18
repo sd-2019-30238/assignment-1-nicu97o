@@ -1,10 +1,7 @@
 package com.bestFurnitureDeals.model;
 
 import com.bestFurnitureDeals.model.observer.Observable;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -17,6 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class ClientOrder extends Observable<UserObserver> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,15 +35,18 @@ public class ClientOrder extends Observable<UserObserver> {
 
     @OneToOne(mappedBy = "clientOrder")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
     private OrderHistory orderHistory;
 
     @OneToMany(mappedBy = "clientOrder", fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
     private List<Product> products;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @EqualsAndHashCode.Exclude
     private User user;
 
     public ClientOrder(boolean approved, PaymentMethod paymentMethod, BigDecimal totalPrice, boolean finished) {

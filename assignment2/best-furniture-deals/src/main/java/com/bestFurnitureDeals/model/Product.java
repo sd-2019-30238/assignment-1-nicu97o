@@ -1,9 +1,6 @@
 package com.bestFurnitureDeals.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -15,6 +12,8 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +28,15 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dealId")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Deal deal;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clientOrderId")
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private ClientOrder clientOrder;
 
     public Product(int selectedQuantity, BigDecimal price, Deal deal, ClientOrder clientOrder) {
