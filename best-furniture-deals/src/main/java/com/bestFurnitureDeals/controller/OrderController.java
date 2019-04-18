@@ -68,7 +68,7 @@ public class OrderController {
     }
 
     @PutMapping("/checkout")
-    public ModelAndView checkout(Authentication authentication, @RequestParam("subscribe") boolean subscribe) {
+    public ModelAndView checkout(Authentication authentication, @RequestParam(name = "subscribe", defaultValue = "false") boolean subscribe) {
         ModelAndView modelAndView = new ModelAndView("redirect:/orders/currentOrder");
         clientOrderServiceFacade.checkoutCurrentOrder(authentication.getName(), subscribe);
         return modelAndView;

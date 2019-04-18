@@ -54,4 +54,12 @@ public class ClientOrder extends Observable<UserObserver> {
         this.totalPrice = totalPrice;
         this.finished = finished;
     }
+
+    public ClientOrder(long id, boolean approved, PaymentMethod paymentMethod, BigDecimal totalPrice, boolean finished) {
+        this.id = id;
+        this.approved = approved;
+        this.paymentMethod = paymentMethod;
+        this.totalPrice = totalPrice;
+        this.finished = finished;
+    }
 }

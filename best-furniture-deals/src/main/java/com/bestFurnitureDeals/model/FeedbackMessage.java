@@ -1,6 +1,8 @@
 package com.bestFurnitureDeals.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 
@@ -10,6 +12,8 @@ import javax.persistence.*;
 @Table
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class FeedbackMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

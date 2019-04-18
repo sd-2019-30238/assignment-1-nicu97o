@@ -34,4 +34,13 @@ public class ClientOrderDTO {
     private OrderHistoryDTO orderHistory;
 
     private UserDTO user;
+
+    public ClientOrderDTO(Long id, boolean approved, @NotNull PaymentMethod paymentMethod, @NotNull(message = "Price can't be null") @PositiveOrZero(message = "Price needs to be greater or equal to 0") BigDecimal totalPrice, boolean finished, UserDTO user) {
+        this.id = id;
+        this.approved = approved;
+        this.paymentMethod = paymentMethod;
+        this.totalPrice = totalPrice;
+        this.finished = finished;
+        this.user = user;
+    }
 }

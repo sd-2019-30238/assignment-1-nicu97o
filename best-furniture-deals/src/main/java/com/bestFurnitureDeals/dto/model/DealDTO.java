@@ -1,7 +1,9 @@
 package com.bestFurnitureDeals.dto.model;
 
 import com.bestFurnitureDeals.model.DealType;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
@@ -12,6 +14,8 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class DealDTO {
     private Long id;
 

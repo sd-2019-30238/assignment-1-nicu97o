@@ -43,6 +43,10 @@ public class FeedbackMessageServiceImpl implements FeedbackMessageService {
     @Override
     @PreAuthorize("hasAuthority('STAFF')")
     public FeedbackMessage getFeedbackMessageByOrderId(long id) {
-        return clientOrderService.getClientOrderById(id).getOrderHistory().getFeedbackMessage();
+        FeedbackMessage feedbackMessage = clientOrderService.getClientOrderById(id).getOrderHistory().getFeedbackMessage();
+        if (feedbackMessage == null) {
+            throw new NoFeedbackMessageFoundException("Feedback message not posted yet!");
+        }
+        return feedbackMessage;
     }
 }
