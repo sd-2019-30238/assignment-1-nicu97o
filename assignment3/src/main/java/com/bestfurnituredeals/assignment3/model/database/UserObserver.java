@@ -1,6 +1,6 @@
 package com.bestfurnituredeals.assignment3.model.database;
 
-import com.bestFurnitureDeals.model.observer.Observer;
+import com.bestfurnituredeals.assignment3.model.database.observer.Observer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

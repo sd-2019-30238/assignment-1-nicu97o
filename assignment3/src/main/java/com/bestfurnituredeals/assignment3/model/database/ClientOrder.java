@@ -1,6 +1,6 @@
 package com.bestfurnituredeals.assignment3.model.database;
 
-import com.bestFurnitureDeals.model.observer.Observable;
+import com.bestfurnituredeals.assignment3.model.database.observer.Observable;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 
