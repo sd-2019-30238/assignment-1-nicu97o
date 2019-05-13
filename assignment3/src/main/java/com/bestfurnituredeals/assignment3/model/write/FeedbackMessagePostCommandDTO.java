@@ -20,4 +20,6 @@ public class FeedbackMessagePostCommandDTO {
     @NotBlank
     @Size(min = 5)
     private String messageBody;
+
+    private long orderId;
 }

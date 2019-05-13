@@ -1,7 +1,5 @@
 package com.bestfurnituredeals.assignment3.mediator.impl;
 
-import com.bestfurnituredeals.assignment3.facade.command.UserCommandServiceFacade;
-import com.bestfurnituredeals.assignment3.model.write.UserRegisterCommandDTO;
 import com.bestfurnituredeals.assignment3.request.Request;
 import com.bestfurnituredeals.assignment3.request.RequestType;
 import com.bestfurnituredeals.assignment3.handler.RequestHandler;
@@ -22,11 +20,6 @@ public class MediatorImpl implements Mediator {
 
     @Override
     public void handle(Request request) {
-        if (request.getRequestType() == RequestType.USER_COMMAND) {
-            if (request.getRequestName().equals("addUser")) {
-                ((UserCommandServiceFacade) handlerMap.get(RequestType.USER_COMMAND)).addUser((UserRegisterCommandDTO) request.getRequestObject());
-            }
-        }
+        handlerMap.get(request.getRequestType()).handleRequest(request);
     }
-
 }

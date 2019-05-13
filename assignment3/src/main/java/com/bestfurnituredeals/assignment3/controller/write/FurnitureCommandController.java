@@ -1,9 +1,10 @@
 package com.bestfurnituredeals.assignment3.controller.write;
 
-import com.bestfurnituredeals.assignment3.facade.command.FurnitureCommandServiceFacade;
+import com.bestfurnituredeals.assignment3.mediator.Mediator;
 import com.bestfurnituredeals.assignment3.model.write.FurnitureAddCommandDTO;
 import com.bestfurnituredeals.assignment3.model.write.FurnitureUpdateCommandDTO;
-import com.bestfurnituredeals.assignment3.service.command.FurnitureCommandService;
+import com.bestfurnituredeals.assignment3.request.Request;
+import com.bestfurnituredeals.assignment3.request.RequestType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,17 +19,17 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/furniture")
 public class FurnitureCommandController {
-    private FurnitureCommandServiceFacade furnitureCommandServiceFacade;
+    private Mediator mediator;
 
     @Autowired
-    public FurnitureCommandController(FurnitureCommandServiceFacade furnitureCommandServiceFacade) {
-        this.furnitureCommandServiceFacade = furnitureCommandServiceFacade;
+    public FurnitureCommandController(Mediator mediator) {
+        this.mediator = mediator;
     }
 
     @DeleteMapping("/{id}")
     public ModelAndView deleteFurniture(@PathVariable("id") long id) {
         ModelAndView modelAndView = new ModelAndView("redirect:/furniture/getAllFurniture");
-        furnitureCommandServiceFacade.deleteFurniture(id);
+        mediator.handle(new Request("deleteFurniture", id, RequestType.FURNITURE_COMMAND));
         return modelAndView;
     }
 
@@ -40,7 +41,7 @@ public class FurnitureCommandController {
             modelAndView.addObject("errorMessage", "Invalid input!");
             return modelAndView;
         }
-        furnitureCommandServiceFacade.addFurniture(furnitureDTO);
+        mediator.handle(new Request("addFurniture", furnitureDTO, RequestType.FURNITURE_COMMAND));
         return modelAndView;
     }
 
@@ -52,7 +53,7 @@ public class FurnitureCommandController {
             modelAndView.addObject("errorMessage", "Invalid input!");
             return modelAndView;
         }
-        furnitureCommandServiceFacade.updateFurniture(furnitureDTO);
+        mediator.handle(new Request("updateFurniture", furnitureDTO, RequestType.FURNITURE_COMMAND));
         modelAndView.setViewName("redirect:/furniture/getAllFurniture");
         return modelAndView;
     }

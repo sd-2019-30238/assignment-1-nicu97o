@@ -33,4 +33,6 @@ public class DealAddCommandDTO {
     private int availableQuantity;
 
     private boolean available;
+
+    private long furnitureId;
 }
