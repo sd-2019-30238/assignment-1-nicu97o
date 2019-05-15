@@ -53,7 +53,7 @@ public class ProductCommandServiceImpl implements ProductCommandService {
         } else if (deal.getDealType() == DealType.NORMAL) {
             product = new Product(quantity, deal, clientOrder);
         }
-        product.decorate();
+//        product.decorate();
         productDAO.save((Product) product.getProduct());
     }
 

@@ -10,11 +10,6 @@ public abstract class ProductDecorator implements IProduct {
     }
 
     @Override
-    public void decorate() {
-        product.decorate();
-    }
-
-    @Override
     public BigDecimal getPrice() {
         return product.getPrice();
     }
@@ -25,6 +20,6 @@ public abstract class ProductDecorator implements IProduct {
     }
 
     public IProduct getProduct() {
-        return product;
+        return product.getProduct();
     }
 }

@@ -10,8 +10,9 @@ public class ReducedProduct extends ProductDecorator {
     }
 
     @Override
-    public void decorate() {
-        super.decorate();
-        super.setPrice(super.getPrice().multiply(BigDecimal.valueOf(REDUCED_PERCENTAGE)));
+    public IProduct getProduct() {
+        IProduct iProduct =  super.getProduct();
+        iProduct.setPrice(super.getPrice().multiply(BigDecimal.valueOf(REDUCED_PERCENTAGE)));
+        return iProduct;
     }
 }

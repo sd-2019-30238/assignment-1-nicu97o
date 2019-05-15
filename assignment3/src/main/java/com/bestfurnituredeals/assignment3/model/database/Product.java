@@ -47,13 +47,9 @@ public class Product implements IProduct {
     }
 
     @Override
-    public void decorate() {
+    public IProduct getProduct() {
         deal.setAvailableQuantity(deal.getAvailableQuantity() - getSelectedQuantity());
         setPrice(deal.getPrice().multiply(BigDecimal.valueOf(getSelectedQuantity())));
-    }
-
-    @Override
-    public IProduct getProduct() {
         return this;
     }
 }
