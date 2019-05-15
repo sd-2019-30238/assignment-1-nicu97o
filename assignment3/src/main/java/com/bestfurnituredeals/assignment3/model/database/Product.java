@@ -1,5 +1,6 @@
 package com.bestfurnituredeals.assignment3.model.database;
 
+import com.bestfurnituredeals.assignment3.decorator.IProduct;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 
@@ -14,7 +15,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class Product {
+public class Product implements IProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,10 +40,20 @@ public class Product {
     @ToString.Exclude
     private ClientOrder clientOrder;
 
-    public Product(int selectedQuantity, BigDecimal price, Deal deal, ClientOrder clientOrder) {
+    public Product(int selectedQuantity, Deal deal, ClientOrder clientOrder) {
         this.selectedQuantity = selectedQuantity;
-        this.price = price;
         this.deal = deal;
         this.clientOrder = clientOrder;
+    }
+
+    @Override
+    public void decorate() {
+        deal.setAvailableQuantity(deal.getAvailableQuantity() - getSelectedQuantity());
+        setPrice(deal.getPrice().multiply(BigDecimal.valueOf(getSelectedQuantity())));
+    }
+
+    @Override
+    public IProduct getProduct() {
+        return this;
     }
 }

@@ -1,12 +1,14 @@
 package com.bestfurnituredeals.assignment3.service.command.impl;
 
 import com.bestfurnituredeals.assignment3.dao.ProductDAO;
+import com.bestfurnituredeals.assignment3.decorator.IProduct;
+import com.bestfurnituredeals.assignment3.decorator.ReducedProduct;
 import com.bestfurnituredeals.assignment3.exception.DealUnavailableException;
 import com.bestfurnituredeals.assignment3.exception.NotEnoughProductsOnStockException;
 import com.bestfurnituredeals.assignment3.exception.OrderAlreadyPlacedException;
-import com.bestfurnituredeals.assignment3.factory.ProductCreatorFactory;
 import com.bestfurnituredeals.assignment3.model.database.ClientOrder;
 import com.bestfurnituredeals.assignment3.model.database.Deal;
+import com.bestfurnituredeals.assignment3.model.database.DealType;
 import com.bestfurnituredeals.assignment3.model.database.Product;
 import com.bestfurnituredeals.assignment3.service.command.DealCommandService;
 import com.bestfurnituredeals.assignment3.service.command.ProductCommandService;
@@ -45,8 +47,14 @@ public class ProductCommandServiceImpl implements ProductCommandService {
             throw new DealUnavailableException();
         }
         ClientOrder clientOrder = clientOrderQueryService.getCurrentClientOrderForAnUser(username);
-        Product product = ProductCreatorFactory.getInstance(deal.getDealType()).createProduct(clientOrder, deal, quantity);
-        productDAO.save(product);
+        IProduct product = null;
+        if (deal.getDealType() == DealType.REDUCED) {
+            product = new ReducedProduct(new Product(quantity, deal, clientOrder));
+        } else if (deal.getDealType() == DealType.NORMAL) {
+            product = new Product(quantity, deal, clientOrder);
+        }
+        product.decorate();
+        productDAO.save((Product) product.getProduct());
     }
 
     @Override
